@@ -1,0 +1,23 @@
+{
+  "name": "secrethandshake",
+  "version": "0.0.1",
+  "description": "shhhh",
+  "main": "app.js",
+  "scripts": {
+    "start": "nw app",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "David Nichols",
+  "license": "Unlicense",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.14.0",
+    "vue": "^2.0.3"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.1.2",
+    "nw": "^0.18.4-sdk"
+  }
+}
