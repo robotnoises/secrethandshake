@@ -49,7 +49,8 @@ function createMenu() {
 function create() {
   // Create a tray icon
   if (!_tray) {
-    _tray = new nw.Tray({ title: 'Foo' });
+    _tray = new nw.Tray({ title: 'foo' });
+    _tray.tooltip = 'shhh';
     createMenu();
   }
 }
