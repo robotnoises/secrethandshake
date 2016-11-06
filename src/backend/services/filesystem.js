@@ -17,7 +17,12 @@ function getDatabaseDirectory() {
   return path.join(getHomeDirectory(), '.secrethandshake', 'databases');
 }
 
+function getFilesDirectory() {
+  return path.join(getHomeDirectory(), '.secrethandshake', 'files');
+}
+
 module.exports = {
   getHomeDirectory: getHomeDirectory,
-  getDatabaseDirectory: getDatabaseDirectory
+  getDatabaseDirectory: getDatabaseDirectory,
+  getFilesDirectory: getFilesDirectory
 };

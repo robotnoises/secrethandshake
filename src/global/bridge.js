@@ -4,9 +4,9 @@
  * Private
  */
 
-function addScBridge(win) {
+function addShBridge(win) {
   if (win) {
-    win.scbridge = win.scbridge || {};
+    win.shbridge = win.shbridge || {};
   } else {
     throw new Error('Window not provided.');
   }
@@ -18,12 +18,12 @@ function addScBridge(win) {
 
 function add(win, key, value) {
   
-  addScBridge(win);
+  addShBridge(win);
 
-  if (!!win.scbridge[key]) {
+  if (!!win.shbridge[key]) {
     throw new Error('There is already a property named ' + key + ' in the bridge.');
   } else {
-    win.scbridge[key] = value;
+    win.shbridge[key] = value;
   }
 }
 

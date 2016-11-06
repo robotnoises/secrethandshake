@@ -15,6 +15,7 @@ function Options(optionOverrides) {
  */
 
 function create(pathToWindow, options, callback) {
+  // todo: Promisify
   nw.Window.open(pathToWindow, new Options(options), callback);
 }
 

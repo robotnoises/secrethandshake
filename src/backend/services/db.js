@@ -26,7 +26,7 @@ function load(done) {
 function save(dbName, data) {
   databases[dbName].insert(data, err => {
     if (err) {
-      // todo: log it
+      console.error('db save error:', err);
     } else {
       console.log('cool');
     }

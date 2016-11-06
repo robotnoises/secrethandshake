@@ -1,7 +1,7 @@
 'use strict';
 
 const path = require('path');
-const window = require('./../../ui/services/window');
+const window = require('./window');
 const bridge = require('./../../global/bridge'); 
 
 /**
@@ -53,11 +53,6 @@ function create() {
   }
 }
 
-function show() {
-  // todo
-}
-
 module.exports = {
-  create: create,
-  show: show
+  create: create
 };
