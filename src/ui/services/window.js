@@ -6,8 +6,8 @@
 
 function Options(optionOverrides) {
   this.title = optionOverrides.title || 'Secret Handshake';
-  this.height = optionOverrides.height || 500;
-  this.width = optionOverrides.width || 400;
+  this.height = optionOverrides.height || 700;
+  this.width = optionOverrides.width || 900;
 }
 
 /**

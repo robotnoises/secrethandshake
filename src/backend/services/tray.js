@@ -1,7 +1,7 @@
 'use strict';
 
 const path = require('path');
-const windowService = require('./../../ui/services/windowService');
+const window = require('./../../ui/services/window');
 const bridge = require('./../../global/bridge'); 
 
 /**
@@ -21,20 +21,18 @@ function createMenu() {
     _menu = new nw.Menu();
     _menu.append(new nw.MenuItem({ 
       type: 'normal', 
-      label: 'foo', 
+      label: 'test', 
       click: () => {
         
-        let tempPath = path.join('src', 'ui', 'components', 'home', 'home.html');
+        let tempPath = path.join('src', 'ui', 'components', 'test', 'test.html');
 
-        windowService.create(tempPath, { show: false }, (win) => {
+        window.create(tempPath, { show: false }, (win) => {
           win.on('loaded', () => {
             win.show();
           });
 
           bridge.add(win.window, 'foo', 'bar');
         });
-
-
       } 
     }));
 
@@ -49,7 +47,7 @@ function createMenu() {
 function create() {
   // Create a tray icon
   if (!_tray) {
-    _tray = new nw.Tray({ title: 'foo' });
+    _tray = new nw.Tray({ title: 'sh' });
     _tray.tooltip = 'shhh';
     createMenu();
   }
