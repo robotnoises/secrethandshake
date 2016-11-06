@@ -10,9 +10,11 @@
   "author": "David Nichols",
   "license": "Unlicense",
   "dependencies": {
+    "bcrypt": "^0.8.7",
     "body-parser": "^1.15.2",
     "cookie-parser": "^1.4.3",
     "express": "^4.14.0",
+    "nedb": "^1.8.0",
     "vue": "^2.0.3"
   },
   "devDependencies": {

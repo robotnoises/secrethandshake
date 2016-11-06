@@ -1,5 +1,10 @@
 'use strict';
 
-const trayService = require('./src/backend/services/trayService');
+const tray = require('./src/backend/services/tray');
+const db = require('./src/backend/services/db');
 
-trayService.create();
+tray.create();
+
+db.load(() => {
+  db.save(db.DB.PASSPHRASE, { 'hello': 'world' });
+});
