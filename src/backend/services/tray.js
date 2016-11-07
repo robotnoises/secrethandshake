@@ -1,8 +1,7 @@
 'use strict';
 
-const path = require('path');
-const window = require('./window');
-const bridge = require('./../../global/bridge'); 
+const path = require('path'); 
+const testWindow = require('./../windows/test');
 
 /**
  * Globals
@@ -22,20 +21,7 @@ function createMenu() {
     _menu.append(new nw.MenuItem({ 
       type: 'normal', 
       label: 'test', 
-      click: () => {
-        
-        let tempPath = path.join('src', 'ui', 'components', 'test', 'test.html');
-
-        window.create(tempPath, { show: false }, (win) => {
-          win.on('loaded', () => {
-            win.show();
-          });
-
-          bridge.addItem(win.window, 'setPassphraseTest', (passphrase) => {
-            logger.info('Setting passphrase (test):', passphrase);
-          });
-        });
-      } 
+      click: testWindow.show
     }));
 
     _tray.menu = _menu;
