@@ -1,0 +1,21 @@
+{
+  "name": "secrethandshake",
+  "homepage": "https://github.com/robotnoises/secrethandshake",
+  "description": "",
+  "main": "app.js",
+  "authors": [
+    "David Nichols"
+  ],
+  "license": "UNLICENSED",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "vue": "^2.0.5"
+  }
+}

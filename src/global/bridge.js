@@ -1,12 +1,16 @@
 'use strict';
 
+const logger = require('./logger');
+
 /**
  * Private
  */
 
+let shbridge = {};
+
 function addShBridge(win) {
   if (win) {
-    win.shbridge = win.shbridge || {};
+    shbridge = win.shbridge = win.shbridge || {};
   } else {
     throw new Error('Window not provided.');
   }
@@ -16,17 +20,18 @@ function addShBridge(win) {
  * Public
  */
 
-function add(win, key, value) {
+function addItem(win, key, value) {
   
   addShBridge(win);
 
   if (!!win.shbridge[key]) {
     throw new Error('There is already a property named ' + key + ' in the bridge.');
   } else {
-    win.shbridge[key] = value;
+    shbridge[key] = value;
   }
 }
 
 module.exports = {
-  add: add
+  get: shbridge,
+  addItem: addItem
 };

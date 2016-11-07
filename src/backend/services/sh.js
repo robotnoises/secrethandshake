@@ -76,7 +76,6 @@ function verify(pathToFile, passphrase) {
   return new Promise((resolve, reject) => {
     let pathToEncFile = pathToFile + '.enc';
     let pathToDecFile = pathToFile + '.dec';
-
     let origFileSample = '';
 
     translate(pathToEncFile, passphrase, '.dec', true)
@@ -88,7 +87,7 @@ function verify(pathToFile, passphrase) {
         return getContentsSample(pathToDecFile, 1000);
       })
       .then((decryptedSample) => {
-        resolve(decryptedSample === origFileSample)
+        resolve(decryptedSample === origFileSample);
       })
       .catch((error) => reject(error));
   });

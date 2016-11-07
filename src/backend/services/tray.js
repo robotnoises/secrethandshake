@@ -31,7 +31,9 @@ function createMenu() {
             win.show();
           });
 
-          bridge.add(win.window, 'foo', 'bar');
+          bridge.addItem(win.window, 'setPassphraseTest', (passphrase) => {
+            logger.info('Setting passphrase (test):', passphrase);
+          });
         });
       } 
     }));

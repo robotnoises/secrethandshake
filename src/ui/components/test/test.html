@@ -16,10 +16,19 @@
     <!--<link rel="stylesheet" href="bower_components/concise/dist/concise.min.css">
     <link rel="stylesheet" href="assets/style/logos.css">
     <link rel="stylesheet" href="assets/style/goodrating.css">-->
+    <script src="../../bower_components/vue/dist/vue.min.js"></script>
   </head>
   <body>
 
-    <div class="hello">Test Harness (integration) App</div>
+    <h1 class="hello">Test Harness (integration) App</h1>
+
+    <div id="testharness">
+      <label>Add passphrase</label>
+      <input v-model="passphrase" type="password" placeholder="Enter test passphrase" />
+      <p>{{ passphrase }}</p>
+      <button v-on:click="setPassphraseTest">Test Passphrase</button>
+    </div>
     
+    <script src="test.js"></script>
   </body>
 </html>
