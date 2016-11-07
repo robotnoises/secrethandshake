@@ -2,7 +2,7 @@
 
 const tray = require('./src/backend/services/tray');
 const db = require('./src/backend/services/db');
-const crypto = require('./src/backend/services/crypto'); 
+const sh = require('./src/backend/services/sh'); 
 const filesystem = require('./src/backend/services/filesystem');
 
 // Create/load the Tray
@@ -14,7 +14,10 @@ db.load(() => {
 });
 
 // Test the crypto
-crypto.encypt(filesystem.getFilesDirectory() + '/test.txt', 'foobarbaz')
+sh.encrypt(filesystem.getFilesDirectory() + '/test.txt', 'foobarbaz')
+  .then(() => {
+    return sh.decrypt(filesystem.getFilesDirectory() + '/test.txt.enc', 'foobarbaz');
+  })
   .then(() => {
     console.log('done');
   })
