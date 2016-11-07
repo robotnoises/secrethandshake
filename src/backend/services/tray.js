@@ -9,7 +9,6 @@ const testWindow = require('./../windows/test');
 
 let _tray;
 let _menu;
-let _initialized = false;
 
 /**
  * Private
@@ -18,6 +17,7 @@ let _initialized = false;
 function createMenu() {
   if (!_menu && _tray) {
     _menu = new nw.Menu();
+    
     _menu.append(new nw.MenuItem({ 
       type: 'normal', 
       label: 'test', 
@@ -35,7 +35,9 @@ function createMenu() {
 function create() {
   // Create a tray icon
   if (!_tray) {
-    _tray = new nw.Tray({ title: 'sh' });
+    _tray = new nw.Tray({
+      icon: 'src/assets/images/tray2.png'
+    });
     _tray.tooltip = 'shhh';
     createMenu();
   }
