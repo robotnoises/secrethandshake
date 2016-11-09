@@ -6,6 +6,7 @@ const bridge = require('./../../global/bridge');
 const logger = require('./../../global/logger');
 const db = require('./../services/db'); 
 const passphrase = require('./../services/passphrase'); 
+const message = require('./../services/message');
 
 let createdWin;
 
@@ -25,7 +26,10 @@ function saveTestPassphrase(input) {
     })
     .then(match => {
       logger.info('match?', match);
-      bridge.setItem(createdWin.window, 'setPassphraseTestResult', match);
+      message.send(createdWin.window, {
+        type: 'setPassphraseTestResult',
+        value: match
+      })
     })
     .catch(error => logger.error(error));
 }
@@ -53,7 +57,6 @@ function createNew() {
     // Bridge methods/properties
 
     bridge.setItem(win.window, 'setPassphraseTest', saveTestPassphrase);
-    bridge.setItem(win.window, 'setPassphraseTestResult', false);
   });
 }
 

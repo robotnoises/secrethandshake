@@ -4,7 +4,7 @@ var vm = new Vue({
   el: '#testharness',
   data: {
     passphrase: '',
-    setPassphraseTestResult: bridge.setPassphraseTestResult
+    setPassphraseTestResult: ''
   },
   methods: {
     setPassphraseTest: function (event) {
@@ -12,3 +12,13 @@ var vm = new Vue({
     }
   }
 });
+
+// Notifications
+
+function receiveMessage(notifcation) {
+  if (notifcation.data.type === 'setPassphraseTestResult') {
+    vm.setPassphraseTestResult = notifcation.data.value;
+  }
+}
+
+window.addEventListener("message", receiveMessage, false);
