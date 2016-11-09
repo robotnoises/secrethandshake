@@ -10,8 +10,12 @@ logger.info('Starting the app');
 tray.create();
 
 // Load databases (disk)
-db.load(() => {
-  db.save(db.DB.PASSPHRASE, { 'hello': 'world' });
-});
+db.load()
+  .then(() => {
+    logger.info('Databases loaded');
+  })
+  .catch((error) => {
+    logger.error(error);
+  });
 
 logger.info('App started');

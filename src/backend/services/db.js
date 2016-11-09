@@ -3,38 +3,76 @@
 const path = require('path');
 const filesystem = require('./filesystem');
 const Datastore = require('nedb');
+const config = require('./../../global/config'); // todo: this path sucks
+const logger = require('./../../global/logger'); // todo: same
 
 /**
- * Globals
+ * Private
  */
 
-let databases = {};
+function loadDb(prop, name) {
+  return new Promise((resolve, reject) => {
+    if (databases[prop]) {
+      databases[prop] = new Datastore({ filename: path.join(filesystem.getDatabaseDirectory(), name + '.db') })
+      databases[prop].loadDatabase(() => {
+        logger.info('loaded db:', prop);
+        resolve();
+      });
+    } else {
+      reject(new Error('Database ' + prop + ' not found'));
+    }
+  });
+}
 
 /**
  * Public
  */
 
-const DB = {
-  PASSPHRASE: 'passphrase'
+let databases = {
+  passphrase: {},
+  passphraseTest: {}
 };
 
-function load(done) {
-  databases.passphrase = new Datastore({ filename: path.join(filesystem.getDatabaseDirectory(), 'passphrase.db') })
-  databases.passphrase.loadDatabase(done);
+/**
+ * Load all databases
+ */
+function load() {
+  return loadDb('passphrase', 'passphrase')
+    .then(() => loadDb('passphraseTest', 'passphrase.test'))
+    .catch(error => logger.error(error));
 }
 
-function save(dbName, data) {
-  databases[dbName].insert(data, err => {
-    if (err) {
-      console.error('db save error:', err);
-    } else {
-      console.log('cool');
-    }
+function remove(db, query) {
+  return new Promise((resolve, reject) => {
+    let q = query || {};
+
+    db.remove(q, { multi: true }, err => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve();
+      }
+    });
+  });
+}
+
+function save(db, data) {
+  return new Promise((resolve, reject) => {
+    db.insert(data, err => {
+      if (err) {
+        logger.error('db save error:', err);
+        reject(err);
+      } else {
+        logger.info('db (' + db.filename + ') save success: ', data);
+        resolve(data);
+      }
+    });
   });
 }
 
 module.exports = {
-  DB: DB,
+  databases: databases,
   load: load,
-  save: save
+  save: save,
+  remove: remove
 };

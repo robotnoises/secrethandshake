@@ -4,12 +4,35 @@ const path = require('path');
 const windowService = require('./index');
 const bridge = require('./../../global/bridge');
 const logger = require('./../../global/logger');
-
-/**
- * Private
- */
+const db = require('./../services/db'); 
+const passphrase = require('./../services/passphrase'); 
 
 let createdWin;
+
+/**
+ * Bridge methods
+ */
+
+function saveTestPassphrase(input) {
+  logger.info('Setting passphrase (test):', input);
+  
+  passphrase.hash(input)
+    .then(hashed => {
+      return db.save(db.databases.passphraseTest, { passphrase: hashed });
+    })
+    .then(hashResult => {
+      return passphrase.check(input, hashResult.passphrase);
+    })
+    .then(match => {
+      logger.info('match?', match);
+      bridge.setItem(createdWin.window, 'setPassphraseTestResult', match);
+    })
+    .catch(error => logger.error(error));
+}
+
+/**
+ * Private Window functions
+ */
 
 function createNew() {
   let tempPath = path.join('src', 'ui', 'components', 'test', 'test.html');
@@ -27,11 +50,10 @@ function createNew() {
       win.hide();
     });
 
-    // Bridge methods
+    // Bridge methods/properties
 
-    bridge.addItem(win.window, 'setPassphraseTest', (passphrase) => {
-      logger.info('Setting passphrase (test):', passphrase);
-    });
+    bridge.setItem(win.window, 'setPassphraseTest', saveTestPassphrase);
+    bridge.setItem(win.window, 'setPassphraseTestResult', false);
   });
 }
 
@@ -41,6 +63,7 @@ function createNew() {
 
 function show() {
   logger.info('Showing test window');
+
   if (createdWin) {
     createdWin.show();
   } else {

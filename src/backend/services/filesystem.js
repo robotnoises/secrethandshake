@@ -18,27 +18,27 @@ function verifyDir(pathToDir) {
   }
 }
 
-function getHomeDirectory() {
-  return os.homedir();
-}
-
-function getDatabaseDirectory() {
-  return path.join(getHomeDirectory(), '.secrethandshake', 'databases');
-}
-
-function getFilesDirectory() {
-  return path.join(getHomeDirectory(), '.secrethandshake', 'files');
+function getBaseDirectory() {
+  return path.join(os.homedir(), '.secrethandshake');
 }
 
 function getLogsDirectory() {
-  let pathToDir = path.join(getHomeDirectory(), '.secrethandshake', 'logs');
+  let pathToDir = path.join(getBaseDirectory(), 'logs');
   verifyDir(pathToDir);
   return pathToDir;
 }
 
+function getDatabaseDirectory() {
+  return path.join(getBaseDirectory(), 'databases');
+}
+
+function getFilesDirectory() {
+  return path.join(getBaseDirectory(), 'files');
+}
+
 module.exports = {
-  getHomeDirectory: getHomeDirectory,
+  getBaseDirectory: getBaseDirectory,
+  getLogsDirectory: getLogsDirectory,
   getDatabaseDirectory: getDatabaseDirectory,
-  getFilesDirectory: getFilesDirectory,
-  getLogsDirectory: getLogsDirectory
+  getFilesDirectory: getFilesDirectory
 };

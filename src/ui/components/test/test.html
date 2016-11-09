@@ -26,6 +26,7 @@
       <label>Add passphrase</label>
       <input v-model="passphrase" type="password" placeholder="Enter test passphrase" />
       <p>{{ passphrase }}</p>
+      <p>{{ setPassphraseTestResult }}</p>
       <button v-on:click="setPassphraseTest">Test Passphrase</button>
     </div>
     

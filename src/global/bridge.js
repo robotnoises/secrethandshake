@@ -2,36 +2,26 @@
 
 const logger = require('./logger');
 
-/**
- * Private
- */
-
-let shbridge = {};
-
-function addShBridge(win) {
-  if (win) {
-    shbridge = win.shbridge = win.shbridge || {};
-  } else {
-    throw new Error('Window not provided.');
-  }
-}
+let shbridge = null;
 
 /**
  * Public
  */
 
-function addItem(win, key, value) {
-  
-  addShBridge(win);
-
-  if (!!win.shbridge[key]) {
-    throw new Error('There is already a property named ' + key + ' in the bridge.');
-  } else {
-    shbridge[key] = value;
+function setItem(win, key, value) {
+  if (!win || !win.shbridge) {
+    win.shbridge = {};
+    shbridge = win.shbridge;
   }
+
+  shbridge[key] = value;
+}
+
+function getBridge() {
+  return shbridge;
 }
 
 module.exports = {
-  get: shbridge,
-  addItem: addItem
+  get: getBridge,
+  setItem: setItem
 };
