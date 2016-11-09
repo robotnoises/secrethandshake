@@ -18,10 +18,20 @@ function createMenu() {
   if (!_menu && _tray) {
     _menu = new nw.Menu();
     
+    // Test harness application
     _menu.append(new nw.MenuItem({ 
       type: 'normal', 
-      label: 'test', 
+      label: 'Test App', 
       click: testWindow.show
+    }));
+
+    // Quit
+    _menu.append(new nw.MenuItem({ 
+      type: 'normal', 
+      label: 'Quit Secret Handshake', 
+      click: () => {
+        nw.App.quit();
+      }
     }));
 
     _tray.menu = _menu;
