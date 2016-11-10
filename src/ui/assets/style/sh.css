@@ -1,0 +1,53 @@
+html, body {
+  /*font-family: 'Open Sans, sans-serif';*/
+  font-size: 14px;
+  color: #fff;
+  height: 100%;
+}
+
+h1, h2, h3, h4, h5, h6, p, li, a, span, input, textarea {
+  /*font-family: 'Open Sans, sans-serif';*/
+}
+
+/* Position */
+
+.full-y {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: -1;
+}
+
+/* Containers */
+
+.backdrop {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.padding {
+  padding: 10px 18px;
+}
+
+/* Colors and Gradients */
+
+.gradient {
+  background: linear-gradient(to top, rgb(11, 0, 14), rgb(91, 0, 114));
+}
+
+.bg-dark {
+  background-color: rgba(0,0,0,0.6);
+}
+
+/* Caramel overrides */
+
+nav.dark {
+  background-color: rgba(0,0,0,0.9);
+  border: 0;
+  box-shadow: 0;
+}
