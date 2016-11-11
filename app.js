@@ -2,7 +2,11 @@
 
 const tray = require('./src/backend/services/tray');
 const db = require('./src/backend/services/db');
-const logger = require('./src/global/logger'); 
+const logger = require('./src/global/logger');
+const express = require('express');
+const bodyParser = require('body-parser');
+
+const app = express();
 
 logger.info('Starting the app');
 
@@ -18,4 +22,15 @@ db.load()
     logger.error(error);
   });
 
-logger.info('App started');
+// Express
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use('/app', express.static(__dirname + '/src/ui'));
+
+app.listen(3000, function () {
+  logger.info('App started'); // todo: reliable port discovery
+});
+
+app.get('/', (req, res) => {
+  res.redirect('/app');
+});

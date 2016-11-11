@@ -39,9 +39,8 @@ let createdWin;
  */
 
 function createNew() {
-  let tempPath = path.join('src', 'ui', 'sh.html');
 
-  windowService.create(tempPath, { show: false }, (win) => {
+  windowService.create('127.0.0.1:3000/app', { show: false }, (win) => {
     createdWin = win;
     
     // Events

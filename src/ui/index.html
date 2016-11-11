@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="sh">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <!-- Google fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:600,800' rel='stylesheet' type='text/css'>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="bower_components/concise/dist/concise.min.css"></script>
+    <link rel="stylesheet" href="assets/style/sh.css">
+
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-route/angular-route.min.js"></script>
+  </head>
+  <body>
+    <!--<div class="backdrop gradient"></div>-->
+    <div container>
+      <div row>
+        <div class="nav" column="4">
+          <ul>
+            <li><a href="/">Files</a></li>
+            <li><a href="/#/settings">Settings</a></li>
+          </ul>  
+        </div>
+        <div ng-view column="8"></div>
+      </div>
+    </div>
+    
+    <script src="sh.js"></script>
+    <script src="sh.routes.js"></script>
+    <script src="sh.dependencies.js"></script>
+
+    <script src="components/files/files.controller.js"></script>
+    <script src="components/settings/settings.controller.js"></script>
+  </body>
+</html>
+

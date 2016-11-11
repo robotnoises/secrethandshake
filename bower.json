@@ -16,8 +16,8 @@
     "tests"
   ],
   "dependencies": {
-    "caramel": "*",
     "angular": "^1.5.8",
-    "angular-route": "^1.5.8"
+    "angular-route": "^1.5.8",
+    "concise": "^3.4.0"
   }
 }
