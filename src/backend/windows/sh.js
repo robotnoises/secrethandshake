@@ -39,7 +39,7 @@ let createdWin;
  */
 
 function createNew() {
-  let tempPath = path.join('src', 'ui', 'components', 'sh', 'sh.html');
+  let tempPath = path.join('src', 'ui', 'sh.html');
 
   windowService.create(tempPath, { show: false }, (win) => {
     createdWin = win;
@@ -53,10 +53,6 @@ function createNew() {
     win.on('close', () => {
       win.hide();
     });
-
-    // Bridge methods/properties
-
-    // bridge.setItem(win.window, 'setPassphraseTest', saveTestPassphrase);
   });
 }
 

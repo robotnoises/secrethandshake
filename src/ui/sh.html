@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="sh">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,18 +10,21 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:600,800' rel='stylesheet' type='text/css'>
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="../../bower_components/caramel/src/css/caramel.min.css"></script>
-    <link rel="stylesheet" href="../../assets/style/sh.css">
+    <link rel="stylesheet" href="bower_components/caramel/src/css/caramel.min.css"></script>
+    <link rel="stylesheet" href="assets/style/sh.css">
 
-    <script src="../../bower_components/caramel/src/js/jquery.min.js"></script>
-    <script src="../../bower_components/caramel/src/js/caramel.min.js"></script>
+    <script src="bower_components/caramel/src/js/jquery.min.js"></script>
+    <script src="bower_components/caramel/src/js/caramel.min.js"></script>
 
-    <script src="../../bower_components/vue/dist/vue.min.js"></script>
-    <script src="../../bower_components/vue-router/dist/vue-router.min.js"></script>
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-route/angular-route.min.js"></script>
   </head>
   <body>
     <div class="backdrop gradient"></div>
-    <div id="sh">
+    
+    <div ng-view></div>
+
+    <!--<div id="sh">
       <nav class="nav bar dark">
         <ul>
           <li class="collapse"><a href="#" class="menu"><i class="fa fa-bars"></i></a></li>
@@ -53,9 +56,14 @@
           </div>
         </div>
       </div>
-    </div>
+    </div>-->
     
-    <script src="sh.router.js"></script>
+    <script src="sh.js"></script>
+    <script src="sh.routes.js"></script>
+    <script src="sh.dependencies.js"></script>
+
+    <script src="components/files/files.controller.js"></script>
+    <script src="components/settings/settings.controller.js"></script>
   </body>
 </html>
 
