@@ -13,16 +13,12 @@ const logger = require('./../../global/logger');
 
 function send(win, notification) {
   if (!!win && !!notification) {
+    logger.info('Sending message:', notification.type);
     win.postMessage(notification, '*');
   }
 }
 
-function listenFor(win, event, recieveHandler) {
-  // todo
-}
-
 module.exports = {
-  send: send,
-  listenFor: listenFor
+  send: send
 };
 
