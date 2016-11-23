@@ -165,8 +165,8 @@ nav .side i {
   right: 0;
   bottom: 0;
   left: auto;
-  margin-right: -400px;
-  width: 400px;
+  margin-right: -350px;
+  width: 350px;
   background-color: #eee;
   color: #555;
   z-index: 1;
@@ -175,6 +175,7 @@ nav .side i {
 
 .slideout.open {
   margin-right: 0;
+  transition: margin 200ms ease-out;
 }
 
 .backdrop {

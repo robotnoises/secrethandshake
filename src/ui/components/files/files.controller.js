@@ -4,10 +4,33 @@
 
   angular.module('sh.files')
 
-  .controller('filesController', ['$scope', 'filesService', function ($scope, filesService) {
+  .controller('filesController', [
+    '$scope', 
+    '$window', 
+    '$timeout',
+    'filesService', 
+    function (
+      $scope, 
+      $window, 
+      $timeout,
+      filesService
+    ) {
+    
     $scope.files = filesService.files;
     $scope.selectedFile = {};
     $scope.isSelected = false;
+
+    // Private methods
+
+    const ESCAPE_KEY = 27;
+
+    function handleEscape($event) {
+      if ($event.which === ESCAPE_KEY) {
+        $scope.deselect();
+      }
+    }
+
+    $window.document.addEventListener('keydown', handleEscape);
 
     // Scope methods
 
@@ -21,8 +44,10 @@
     };
 
     $scope.deselect = () => {
-      $scope.selectedFile = {};
-      $scope.isSelected = false;
+      $timeout(() => {
+        $scope.selectedFile = {};
+        $scope.isSelected = false;
+      });
     };
   }]);
 
