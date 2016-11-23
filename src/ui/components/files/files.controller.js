@@ -9,6 +9,7 @@
     '$window', 
     '$timeout',
     'filesService', 
+    
     function (
       $scope, 
       $window, 

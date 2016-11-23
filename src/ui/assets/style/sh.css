@@ -159,6 +159,10 @@ nav .side i {
   text-align: right;
 }
 
+.container.file-details {
+  
+}
+
 .slideout {
   position: fixed;
   top: 0;
