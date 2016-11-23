@@ -1,3 +1,22 @@
-<div>
-  Files!
+<div id="files">
+  <div class="bar"></div>
+  <div class="container-files">
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row" ng-class="{ selected: selectedFile.id === f.id }" ng-repeat="f in files" ng-click="select(f)">
+          <td><i class="fa fa-file-text-o"></i><span ng-bind="f.name"></span></td>
+          <td ng-bind="f.updated"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="slideout" ng-class="{ open: isSelected }">
+    <!-- todo -->
+  </div>
 </div>

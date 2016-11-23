@@ -6,8 +6,10 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-    <!-- Google fonts -->
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:600,800' rel='stylesheet' type='text/css'>
+    <!-- Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
+    <!--<link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,700" rel="stylesheet">-->
+    <link href='assets/fonts/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="bower_components/concise/dist/concise.min.css"></script>
@@ -17,17 +19,29 @@
     <script src="bower_components/angular-route/angular-route.min.js"></script>
   </head>
   <body>
-    <!--<div class="backdrop gradient"></div>-->
-    <div container>
-      <div row>
-        <div class="nav" column="4">
-          <ul>
-            <li><a href="/">Files</a></li>
-            <li><a href="/#/settings">Settings</a></li>
-          </ul>  
+    
+    <!-- Header -->
+    <div>
+      <nav>
+        <div class="side">
+          <p class="navlink"><i class="fa fa-handshake-o" aria-hidden="true"></i></p>
         </div>
-        <div ng-view column="8"></div>
+        <div class="col padding"></div>
+      </nav>
+    </div>
+
+    <div class="container">
+      <!-- Side nav -->
+      <div class="side" ng-controller="navController">
+        <p class="navlink"><a href="/" ng-class="{active: $route.current.active === 'files'}"><i class="fa fa-files-o" aria-hidden="true"></i></a></p>
+        <p class="navlink"><a href="/#/messages" ng-class="{active: $route.current.active === 'messages'}"><i class="fa fa-commenting-o" aria-hidden="true"></i></a></p>
+        <p class="navlink"><a href="/#/contacts" ng-class="{active: $route.current.active === 'contacts'}"><i class="fa fa-address-book-o" aria-hidden="true"></i></a></p>
+        <p class="navlink"><a href="/#/audit" ng-class="{active: $route.current.active === 'audit'}"><i class="fa fa-history" aria-hidden="true"></i></a></p>
+        <p class="navlink"><a href="/#/settings" ng-class="{active: $route.current.active === 'settings'}"><i class="fa fa-sliders" aria-hidden="true"></i></a></p>        
       </div>
+
+      <!-- Main content body -->
+      <div ng-view class="content col"></div>
     </div>
     
     <script src="sh.js"></script>
@@ -35,7 +49,9 @@
     <script src="sh.dependencies.js"></script>
 
     <script src="components/files/files.controller.js"></script>
+    <script src="components/files/files.service.js"></script>
     <script src="components/settings/settings.controller.js"></script>
+    <script src="components/nav/nav.controller.js"></script>
   </body>
 </html>
 

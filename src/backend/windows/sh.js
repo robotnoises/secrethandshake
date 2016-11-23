@@ -14,25 +14,7 @@ let createdWin;
  * Bridge methods
  */
 
-// function saveTestPassphrase(input) {
-//   logger.info('Setting passphrase (test):', input);
-  
-//   passphrase.hash(input)
-//     .then(hashed => {
-//       return db.save(db.databases.passphraseTest, { passphrase: hashed });
-//     })
-//     .then(hashResult => {
-//       return passphrase.check(input, hashResult.passphrase);
-//     })
-//     .then(match => {
-//       logger.info('match?', match);
-//       message.send(createdWin.window, {
-//         type: 'setPassphraseTestResult',
-//         value: match
-//       })
-//     })
-//     .catch(error => logger.error(error));
-// }
+// todo
 
 /**
  * Private Window functions
@@ -64,6 +46,7 @@ function show() {
 
   if (createdWin) {
     createdWin.show();
+    // bridge.setItem(createdWin, 'files', tempFiles);
   } else {
     logger.info('Main window not found, creating');
     createNew();
