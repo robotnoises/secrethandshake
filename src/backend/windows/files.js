@@ -53,14 +53,6 @@ function loadFiles() {
     type: 'filesloaded',
     value: tempFiles
   });
-
-  setTimeout(() => {
-    tempFiles.push({ id: 7, name: 'reactToAddedFile.awesome', updated: new Date('11/23/2016') });
-    message.send(createdWin.window, {
-      type: 'filesloaded',
-      value: tempFiles
-    });
-  }, 5000);
 }
 
 /**
@@ -72,7 +64,6 @@ function show() {
 
   if (createdWin) {
     createdWin.show();
-    loadFiles();
   } else {
     logger.info('Main window not found, creating');
     createNew(loadFiles);
