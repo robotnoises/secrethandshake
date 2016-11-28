@@ -169,6 +169,33 @@ nav .side i {
   /* todo */
 }
 
+.empty {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 65px;
+  color: transparent;
+  font-size: 3em;
+  font-weight: 600;
+  background: url(../images/file-add.svg) center center no-repeat;
+  background-size: 96px 96px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 200ms, color 200ms;
+}
+
+.empty p {
+  user-select: none;
+}
+
+.empty:hover {
+  background-color: #333;
+  color: #222;
+}
+
 .slideout {
   position: fixed;
   top: 0;

@@ -19,7 +19,7 @@
 
     messageService.on('filesloaded', (value) => {
       $timeout(() => {
-        filesService.loaded = true;
+        filesService.files.loaded = true;
         filesService.files.value = value;
       });
     });
