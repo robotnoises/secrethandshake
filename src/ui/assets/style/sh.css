@@ -7,6 +7,7 @@ body {
   color: #fff;
   background-color: #222;
   height: 100%;
+  overflow: hidden;
 }
 
 a {
@@ -34,9 +35,11 @@ table td {
 
 .container {
   display: flex;
+  position: relative;
   flex-direction: row;
   flex-grow: 1;
   height: 100%;
+  overflow: hidden;
 }
 
 .col {
@@ -59,6 +62,7 @@ table td {
 
 .content {
   padding: 0 75px;
+  overflow: scroll;
 }
 
 nav {
@@ -119,7 +123,9 @@ nav .side i {
 
 .container-files {
   margin-top: 25px;
+  margin-bottom: 75px;
   color: #eee;
+  overflow-y: scroll;
 }
 
 .container-files .row {
@@ -160,7 +166,7 @@ nav .side i {
 }
 
 .container.file-details {
-  
+  /* todo */
 }
 
 .slideout {
