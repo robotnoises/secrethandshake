@@ -17,6 +17,14 @@
       value: []
     };
 
+    filesService.consumeFiles = (files) => {
+      if ($window.shbridge && $window.shbridge.consumeFiles) {
+        $window.shbridge.consumeFiles(files);
+      } else {
+        console.error('Bridge method "consumeFiles" not found');
+      }
+    };
+
     messageService.on('filesloaded', (value) => {
       $timeout(() => {
         filesService.files.loaded = true;

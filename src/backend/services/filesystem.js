@@ -3,6 +3,7 @@
 const os = require('os');
 const path = require('path');
 const fs = require('fs');
+const logger = require('./../../global/logger');
 
 /**
  * getHomeDirectory()
@@ -32,13 +33,34 @@ function getDatabaseDirectory() {
   return path.join(getBaseDirectory(), 'databases');
 }
 
-function getFilesDirectory() {
-  return path.join(getBaseDirectory(), 'files');
+function getFilesDirectory(suffix) {
+  let end = suffix || '';
+  return path.join(getBaseDirectory(), 'files', end);
+}
+
+function moveToFiles(sourcePath, fileName) {
+  return new Promise((resolve, reject) => {  
+    let rd = fs.createReadStream(sourcePath);
+    var wr = fs.createWriteStream(getFilesDirectory(fileName));
+
+    function rejectCleanup(err) {
+      rd.destroy();
+      wr.end();
+      reject(err);
+    }
+    
+    rd.on('error', rejectCleanup);
+    wr.on('error', rejectCleanup);
+    wr.on('finish', resolve);
+
+    rd.pipe(wr);
+  });
 }
 
 module.exports = {
   getBaseDirectory: getBaseDirectory,
   getLogsDirectory: getLogsDirectory,
   getDatabaseDirectory: getDatabaseDirectory,
-  getFilesDirectory: getFilesDirectory
+  getFilesDirectory: getFilesDirectory,
+  moveToFiles: moveToFiles
 };

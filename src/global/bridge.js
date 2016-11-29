@@ -13,7 +13,7 @@ function setItem(win, key, value) {
     win.shbridge = {};
     shbridge = win.shbridge;
   }
-
+  logger.info('Setting bridge item:', key);
   shbridge[key] = value;
 }
 

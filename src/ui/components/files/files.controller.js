@@ -9,15 +9,18 @@
     '$window', 
     '$timeout',
     'filesService', 
+    'Upload', 
     
     function (
       $scope, 
       $window, 
       $timeout,
-      filesService
+      filesService,
+      ngFileUploader
     ) {
     
     $scope.files = filesService.files;
+    $scope.droppedFiles = {};
     $scope.selectedFile = {};
     $scope.isSelected = false;
 
@@ -50,6 +53,8 @@
         $scope.isSelected = false;
       });
     };
+
+    $scope.consumeFiles = filesService.consumeFiles;
   }]);
 
 })(angular);

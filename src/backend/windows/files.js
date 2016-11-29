@@ -7,6 +7,8 @@ const logger = require('./../../global/logger');
 const db = require('./../services/db'); 
 const passphrase = require('./../services/passphrase');
 const message = require('./../services/message');
+const filesystem = require('./../services/filesystem');
+const sh = require('./../services/sh');
 
 let createdWin;
 
@@ -19,6 +21,39 @@ let createdWin;
 /**
  * Private Window functions
  */
+
+function consume(file) {
+  return sh.encrypt(file.path, 'foobarbaz'); // todo: accept a passphrase from User
+}
+
+function consumeFiles(files) {  
+  let movingFiles = [];
+  let encryptingFiles = [];
+
+  for (var i = 0, max = files.length; i < max; i++) {
+    logger.info('Moving file', files[i].name);
+    movingFiles.push(filesystem.moveToFiles(files[i].path, files[i].name));
+  }
+
+  Promise.all(movingFiles)
+    .then(() => {
+
+      // todo: write func to construct new path, or return new path for each moved file
+      // todo: write recs to db
+      // todo: notify UI of new files
+
+      // for (var j = 0, max = files.length; j < max; i++) {
+      //   encryptingFiles.push(sh.encrypt(files[j].path, 'foobarbaz'));
+      // }
+      return Promise.all(encryptingFiles);
+    })
+    .then(() => {
+      logger.info('Finished consuming file(s)');
+    })
+    .catch(error => {
+      logger.error(error);
+    });
+}
 
 function createNew(callback) {
 
@@ -35,6 +70,9 @@ function createNew(callback) {
     win.on('close', () => {
       win.hide();
     });
+
+    // Bridge methods
+    bridge.setItem(win.window, 'consumeFiles', consumeFiles);
   });
 }
 
