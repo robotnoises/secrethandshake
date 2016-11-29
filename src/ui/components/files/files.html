@@ -12,9 +12,9 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="row" ng-class="{ selected: selectedFile.id === f.id }" ng-repeat="f in files.value" ng-click="select(f)">
+        <tr class="row" ng-class="{ selected: selectedFile._id === f._id }" ng-repeat="f in files.value" ng-click="select(f)">
           <td><i class="fa fa-file-text-o"></i><span ng-bind="f.name"></span></td>
-          <td ng-bind="f.updated"></td>
+          <td ng-bind="f.lastModified"></td>
         </tr>
       </tbody>
     </table>

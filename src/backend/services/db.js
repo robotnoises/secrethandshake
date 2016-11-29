@@ -44,6 +44,21 @@ function init() {
     .catch(error => logger.error(error));
 }
 
+function read(db, query) {
+  return new Promise((resolve, reject) => {
+    let q = query || {};
+
+    db.find(q, (err, docs) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(docs || []);
+      }
+    });
+  });
+}
+
+
 function remove(db, query) {
   return new Promise((resolve, reject) => {
     let q = query || {};
@@ -75,6 +90,7 @@ function save(db, data) {
 module.exports = {
   databases: databases,
   init: init,
+  read: read,
   save: save,
   remove: remove
 };

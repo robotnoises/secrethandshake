@@ -39,7 +39,7 @@
     // Scope methods
 
     $scope.select = (file) => {
-      if ($scope.selectedFile.id !== file.id) {
+      if ($scope.selectedFile._id !== file._id) {
         $scope.selectedFile = file;
         $scope.isSelected = true;
       } else {

@@ -103,7 +103,13 @@ function createNew(callback) {
 }
 
 function loadFiles() {
-  message.send(createdWin.window, new message.Notification('filesloaded', []));
+  db.read(db.databases.files)
+    .then((files) => {
+      message.send(createdWin.window, new message.Notification('filesloaded', files));
+    })
+    .catch(error => {
+      logger.error(error);
+    });
 }
 
 /**
