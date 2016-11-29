@@ -38,8 +38,8 @@ function encryptFile(file, passphrase) {
         .then(() => {
           return db.save(db.databases.files, file);
         })
-        .then(() => {
-          message.send(createdWin.window, new message.Notification('filedone', file));
+        .then((savedFile) => {
+          message.send(createdWin.window, new message.Notification('filedone', savedFile));
           resolve();
         })
         .catch(error => {

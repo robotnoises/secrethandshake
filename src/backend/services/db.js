@@ -75,13 +75,13 @@ function remove(db, query) {
 
 function save(db, data) {
   return new Promise((resolve, reject) => {
-    db.insert(data, err => {
+    db.insert(data, (err, savedDoc) => {
       if (err) {
         logger.error('db save error:', err);
         reject(err);
       } else {
-        logger.info('db (' + db.filename + ') save success: ', data);
-        resolve(data);
+        logger.info('db (' + db.filename + ') save success');
+        resolve(savedDoc);
       }
     });
   });

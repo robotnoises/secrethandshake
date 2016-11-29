@@ -32,8 +32,11 @@
       });
     });
 
-    messageService.on('filedone', (value) => {
-      $window.console.log('filedone:', value);
+    messageService.on('filedone', (file) => {
+      $window.console.log('filedone:', file);
+      $timeout(() => {
+        filesService.files.value.push(file);
+      });
     });
 
     return filesService;
