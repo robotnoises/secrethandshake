@@ -18,7 +18,17 @@ function send(win, notification) {
   }
 }
 
+function Notification(type, value) {
+  if (!!type && !!value) {
+    this.type = type;
+    this.value = value;
+  } else {
+    throw new Error('type and value must be defined');
+  }
+}
+
 module.exports = {
-  send: send
+  send: send,
+  Notification: Notification
 };
 

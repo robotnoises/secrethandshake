@@ -13,38 +13,64 @@ const sh = require('./../services/sh');
 let createdWin;
 
 /**
- * Bridge methods
+ * Models
  */
 
-// todo
+function ShFile(file) {
+  this.name = file.name;
+  this.path = file.path;
+  this.shPath = path.join(filesystem.getFilesDirectory(), file.name);
+  this.lastModified = file.lastModified;
+  this.lastModifiedDate = file.lastModifiedDate;
+  this.size = file.size;
+  this.type = file.type;
+}
 
 /**
  * Private Window functions
  */
 
-function consume(file) {
-  return sh.encrypt(file.path, 'foobarbaz'); // todo: accept a passphrase from User
+function encryptFile(file, passphrase) {
+  if (passphrase) {
+    return new Promise((resolve) => {
+      logger.info('Encrypting file:', file.name);
+      sh.encrypt(path.join(filesystem.getFilesDirectory(), file.name), passphrase)
+        .then(() => {
+          return db.save(db.databases.files, file);
+        })
+        .then(() => {
+          message.send(createdWin.window, new message.Notification('filedone', file));
+          resolve();
+        })
+        .catch(error => {
+          logger.error(error);
+        });
+    });
+  } else {
+    return Promise.reject('Passphrase is required');
+  }
 }
 
-function consumeFiles(files) {  
+/**
+ * Bridge methods
+ */
+
+// todo: unlink original source file after successfully encrypting
+
+function processFiles(files) {  
   let movingFiles = [];
   let encryptingFiles = [];
 
-  for (var i = 0, max = files.length; i < max; i++) {
-    logger.info('Moving file', files[i].name);
+  for (var i = 0, iMax = files.length; i < iMax; i++) {
+    logger.info('Moving file:', files[i].name);
     movingFiles.push(filesystem.moveToFiles(files[i].path, files[i].name));
   }
 
   Promise.all(movingFiles)
     .then(() => {
-
-      // todo: write func to construct new path, or return new path for each moved file
-      // todo: write recs to db
-      // todo: notify UI of new files
-
-      // for (var j = 0, max = files.length; j < max; i++) {
-      //   encryptingFiles.push(sh.encrypt(files[j].path, 'foobarbaz'));
-      // }
+      for (var j = 0, jMax = files.length; j < jMax; j++) {
+        encryptingFiles.push(encryptFile(new ShFile(files[j]), 'foobarbaz'));
+      }
       return Promise.all(encryptingFiles);
     })
     .then(() => {
@@ -72,25 +98,12 @@ function createNew(callback) {
     });
 
     // Bridge methods
-    bridge.setItem(win.window, 'consumeFiles', consumeFiles);
+    bridge.setItem(win.window, 'consumeFiles', processFiles);
   });
 }
 
-// let tempFiles = [
-//   { id: 0, name: 'foo.txt', updated: new Date('11/03/2016') },
-//   { id: 1, name: 'bar.txt', updated: new Date('12/01/2015') },
-//   { id: 2, name: 'baz.txt', updated: new Date('09/19/2016') },
-//   { id: 3, name: 'fart.docx', updated: new Date('10/11/2016') },
-//   { id: 4, name: 'cool document.xslx', updated: new Date('10/30/2016') },
-//   { id: 5, name: 'aaaaaaaa.pptx', updated: new Date('08/03/2016') },
-//   { id: 6, name: 'manifesto.txt', updated: new Date('07/04/2016') }
-// ];
-
 function loadFiles() {
-  message.send(createdWin.window, {
-    type: 'filesloaded',
-    value: []
-  });
+  message.send(createdWin.window, new message.Notification('filesloaded', []));
 }
 
 /**

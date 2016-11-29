@@ -26,10 +26,7 @@ function saveTestPassphrase(input) {
     })
     .then(match => {
       logger.info('match?', match);
-      message.send(createdWin.window, {
-        type: 'setPassphraseTestResult',
-        value: match
-      })
+      message.send(createdWin.window, new message.Notification('setPassphraseTestResult', match));
     })
     .catch(error => logger.error(error));
 }

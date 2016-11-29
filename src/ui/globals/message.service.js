@@ -12,7 +12,8 @@
     // Private methods
 
     function receiveMessage(notifcation) {
-      for (var i = 0, max = listeners[notifcation.data.type].length; i < max; i++) {
+      let max = (!!listeners[notifcation.data.type]) ? listeners[notifcation.data.type].length : 0;
+      for (var i = 0; i < max; i++) {
         let callback = listeners[notifcation.data.type][i];
         callback(notifcation.data.value);
       }

@@ -99,7 +99,9 @@ function removeDecryptedFiles(pathToFile) {
       logger.info('Unlinking:', pathToFile + '.dec');
       fs.unlink(pathToFile + '.dec', () => {
         logger.info('Unlinking:', pathToFile);
-        fs.unlink(pathToFile, () => resolve());
+        fs.unlink(pathToFile, () => {
+          resolve();
+        });
       });
     } catch (ex) {
       reject(ex);
@@ -113,20 +115,17 @@ function removeDecryptedFiles(pathToFile) {
 
 // encrypt a file
 function encrypt(pathToFile, passphrase) {
-  return new Promise((resolve, reject) => {
-    translate(pathToFile, passphrase, '.enc')
-      .then(() => {
-        return verify(pathToFile, passphrase);
-      })
-      .then((filesMatch) => {
-        if (filesMatch) {
-          return removeDecryptedFiles(pathToFile);
-        } else {
-          reject(new Error('Unable to verify encrypted files'));
-        }
-      })
-      .then(() => resolve());
-  });
+  return translate(pathToFile, passphrase, '.enc')
+    .then(() => {
+      return verify(pathToFile, passphrase);
+    })
+    .then((filesMatch) => {
+      if (filesMatch) {
+        return removeDecryptedFiles(pathToFile);
+      } else {
+        return Promise.reject('Unable to verify encrypted files');
+      }
+    });
 }
 
 // decipher a file

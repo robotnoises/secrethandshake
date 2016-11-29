@@ -14,7 +14,7 @@ logger.info('Starting the app');
 tray.create();
 
 // Load databases (disk)
-db.load()
+db.init()
   .then(() => {
     logger.info('Databases loaded');
   })

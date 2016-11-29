@@ -30,15 +30,17 @@ function loadDb(prop, name) {
 
 let databases = {
   passphrase: {},
-  passphraseTest: {}
+  passphraseTest: {},
+  files: {}
 };
 
 /**
  * Load all databases
  */
-function load() {
+function init() {
   return loadDb('passphrase', 'passphrase')
     .then(() => loadDb('passphraseTest', 'passphrase.test'))
+    .then(() => loadDb('files', 'files'))
     .catch(error => logger.error(error));
 }
 
@@ -72,7 +74,7 @@ function save(db, data) {
 
 module.exports = {
   databases: databases,
-  load: load,
+  init: init,
   save: save,
   remove: remove
 };

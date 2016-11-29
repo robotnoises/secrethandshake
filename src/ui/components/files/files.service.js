@@ -32,6 +32,10 @@
       });
     });
 
+    messageService.on('filedone', (value) => {
+      $window.console.log('filedone:', value);
+    });
+
     return filesService;
   }]);
 
