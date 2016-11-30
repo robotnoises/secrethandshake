@@ -6,6 +6,7 @@ const Datastore = require('nedb');
 const config = require('./../../global/config'); // todo: this path sucks
 const logger = require('./../../global/logger'); // todo: same
 const ERROR = require('./error');
+const FILESTATE = require('./filestate');
 
 /**
  * Private
@@ -81,6 +82,7 @@ function save(db, data) {
         if (docs.length > 0) {
           logger.warn('Name conflict:', data.name);
           data.error = ERROR.FILE_NAMECONFLICT;
+          data.state = FILESTATE.ERROR;
           reject(data);
         } else {
           db.insert(data, (err, savedDoc) => {

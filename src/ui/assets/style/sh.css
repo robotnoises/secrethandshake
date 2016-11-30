@@ -227,6 +227,14 @@ nav .side i {
   padding: 0px 18px;
 }
 
+/* Buttons */
+
+button.btn {
+  background-color: transparent;
+  border: 2px solid #fff;
+  line-height: 36px;
+}
+
 /* Colors and Gradients */
 
 .co-darkest {

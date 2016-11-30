@@ -9,7 +9,7 @@ const passphrase = require('./../services/passphrase');
 const message = require('./../services/message');
 const filesystem = require('./../services/filesystem');
 const sh = require('./../services/sh');
-const ERROR = require('./../services/error');
+const FILESTATE = require('./../services/filestate');
 
 let createdWin;
 
@@ -26,6 +26,7 @@ function ShFile(file) {
   this.size = file.size;
   this.type = file.type;
   this.error = null;
+  this.state = FILESTATE.PROCESSING;
 }
 
 /**
@@ -38,6 +39,7 @@ function encryptFile(file, passphrase) {
       logger.info('Encrypting file:', file.name);
       sh.encrypt(path.join(filesystem.getFilesDirectory(), file.name), passphrase)
         .then(() => {
+          file.state = FILESTATE.ENCRYPTED; // this is assumed for now, and the state should flip to "ERROR" in the event of an error 
           return db.save(db.databases.files, file);
         })
         .then((savedFile) => {

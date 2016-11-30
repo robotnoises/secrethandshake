@@ -1,8 +1,8 @@
 'use strict';
 
-const ERRORS = {
+const ERROR = {
   FILE_NAMECONFLICT: 0,
   FILE_NOTFOUND: 1
 };
 
-module.exports = ERRORS;
+module.exports = ERROR;
