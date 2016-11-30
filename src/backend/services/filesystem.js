@@ -38,10 +38,18 @@ function getFilesDirectory(suffix) {
   return path.join(getBaseDirectory(), 'files', end);
 }
 
-function moveToFiles(sourcePath, fileName) {
+/**
+ * moveToFiles(file: Object)
+ * 
+ * Move a file to the "files" directory
+ * 
+ * Note: the "file" must be an ShFile Object 
+ */
+
+function moveToFiles(file) {
   return new Promise((resolve, reject) => {  
-    let rd = fs.createReadStream(sourcePath);
-    var wr = fs.createWriteStream(getFilesDirectory(fileName));
+    let rd = fs.createReadStream(file.path);
+    var wr = fs.createWriteStream(getFilesDirectory(file.name));
 
     function rejectCleanup(err) {
       rd.destroy();
@@ -51,7 +59,9 @@ function moveToFiles(sourcePath, fileName) {
     
     rd.on('error', rejectCleanup);
     wr.on('error', rejectCleanup);
-    wr.on('finish', resolve);
+    wr.on('finish', () => {
+      resolve(file);
+    });
 
     rd.pipe(wr);
   });

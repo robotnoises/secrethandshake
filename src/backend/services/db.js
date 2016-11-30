@@ -5,8 +5,6 @@ const filesystem = require('./filesystem');
 const Datastore = require('nedb');
 const config = require('./../../global/config'); // todo: this path sucks
 const logger = require('./../../global/logger'); // todo: same
-const ERROR = require('./error');
-const FILESTATE = require('./filestate');
 
 /**
  * Private
@@ -77,25 +75,15 @@ function remove(db, query) {
 
 function save(db, data) {
   return new Promise((resolve, reject) => {
-    read(db, { name: data.name })
-      .then((docs) => {
-        if (docs.length > 0) {
-          logger.warn('Name conflict:', data.name);
-          data.error = ERROR.FILE_NAMECONFLICT;
-          data.state = FILESTATE.ERROR;
-          reject(data);
-        } else {
-          db.insert(data, (err, savedDoc) => {
-            if (err) {
-              logger.error('db save error:', err);
-              reject(err);
-            } else {
-              logger.info('db (' + db.filename + ') save success');
-              resolve(savedDoc);
-            }
-          });
-        }
-      });
+    db.insert(data, (err, savedDoc) => {
+      if (err) {
+        logger.error('db save error:', err);
+        reject(err);
+      } else {
+        logger.info('db (' + db.filename + ') save success');
+        resolve(savedDoc);
+      }
+    });
   });
 }
 

@@ -8,7 +8,9 @@ const db = require('./../services/db');
 const passphrase = require('./../services/passphrase');
 const message = require('./../services/message');
 const filesystem = require('./../services/filesystem');
-const sh = require('./../services/sh');
+const encryption = require('./../services/encryption');
+
+const ERROR = require('./../services/error');
 const FILESTATE = require('./../services/filestate');
 
 let createdWin;
@@ -33,21 +35,44 @@ function ShFile(file) {
  * Private Window functions
  */
 
+function moveFile(file) {
+  return db.read(db.databases.files, { name: file.name })
+    .then((docs) => {
+      if (docs.length > 0) {
+        logger.warn('Name conflict:', file.name);
+        
+        // Set error state
+        file.error = ERROR.FILE_NAMECONFLICT;
+        file.state = FILESTATE.ERROR;
+
+        // Notify UI
+        message.send(createdWin.window, new message.Notification('filedone', file));
+
+        // If the file is not moved, resolve with null, which will be checked in 
+        // the subsequent "encryptFile" function.
+        return Promise.resolve(null);
+      } else {
+        logger.info('Moving file:', file.name);
+        return filesystem.moveToFiles(file);
+      }
+    });
+}
+
 function encryptFile(file, passphrase) {
   if (passphrase) {
     return new Promise((resolve) => {
       logger.info('Encrypting file:', file.name);
-      sh.encrypt(path.join(filesystem.getFilesDirectory(), file.name), passphrase)
+      encryption.encrypt(path.join(filesystem.getFilesDirectory(), file.name), passphrase)
         .then(() => {
-          file.state = FILESTATE.ENCRYPTED; // this is assumed for now, and the state should flip to "ERROR" in the event of an error 
+          file.state = FILESTATE.ENCRYPTED; 
           return db.save(db.databases.files, file);
         })
-        .then((savedFile) => {
+        .then(savedFile => {
           message.send(createdWin.window, new message.Notification('filedone', savedFile));
-          resolve();
+          resolve(savedFile);
         })
-        .catch((errorFile) => {
-          message.send(createdWin.window, new message.Notification('filedone', errorFile));
+        .catch(error => {
+          logger.error(error);
         });
     });
   } else {
@@ -60,21 +85,24 @@ function encryptFile(file, passphrase) {
  */
 
 // todo: unlink original source file after successfully encrypting
-// todo: namecheck before moving the file
 
 function processFiles(files) {  
   let movingFiles = [];
   let encryptingFiles = [];
 
   for (var i = 0, iMax = files.length; i < iMax; i++) {
-    logger.info('Moving file:', files[i].name);
-    movingFiles.push(filesystem.moveToFiles(files[i].path, files[i].name));
+    let file = new ShFile(files[i]);
+    movingFiles.push(moveFile(file));
   }
 
   Promise.all(movingFiles)
-    .then(() => {
-      for (var j = 0, jMax = files.length; j < jMax; j++) {
-        encryptingFiles.push(encryptFile(new ShFile(files[j]), 'foobarbaz'));
+    .then((movedFiles) => {
+      for (var j = 0, jMax = movedFiles.length; j < jMax; j++) {
+        // Some files will not be moved due to name conflicts and errors.
+        // If that is the case, the returned value will be null.
+        if (movedFiles[j]) {
+          encryptingFiles.push(encryptFile(movedFiles[j], 'foobarbaz'));
+        }
       }
       return Promise.all(encryptingFiles);
     })
