@@ -10,8 +10,6 @@
 
     let filesService= {};
 
-    // let containerId;
-
     filesService.files = {
       loaded: false,
       working: [],

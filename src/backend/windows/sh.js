@@ -31,6 +31,11 @@ function ShFile(file) {
   this.state = FILESTATE.PROCESSING;
 }
 
+function ShPassphrase(hash) {
+  this.value = hash;
+  this.lastModified = new Date();
+}
+
 /**
  * Private Window functions
  */
@@ -78,6 +83,15 @@ function encryptFile(file, passphrase) {
   } else {
     return Promise.reject('Passphrase is required');
   }
+}
+
+function setPassphrase(input) {
+  logger.info('Setting passphrase');
+  // todo: wipe-out old passphrase logic
+  return passphrase.hash(input)
+    .then((hashed) => {
+      return db.save(db.databases.passphrase, new ShPassphrase(hashed));
+    });
 }
 
 /**
@@ -132,6 +146,8 @@ function createNew(callback) {
 
     // Bridge methods
     bridge.setItem(win.window, 'consumeFiles', processFiles);
+    bridge.setItem(win.window, 'setPassphrase', setPassphrase);
+    bridge.setItem(win.window, 'checkPassphrase', passphrase.check);
   });
 }
 

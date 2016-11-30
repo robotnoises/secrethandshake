@@ -37,6 +37,23 @@ table thead {
   background-color: transparent;
 }
 
+/* Forms */
+
+input:not([type="submit"]),
+input:not([type="submit"]):focus,
+textarea,
+textarea:focus {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: none;
+  outline: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+input:not([type="submit"]) {
+  height: 42px; 
+}
+
 /* Containers */
 
 .container {
