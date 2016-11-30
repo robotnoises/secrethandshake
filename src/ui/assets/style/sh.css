@@ -1,7 +1,6 @@
 html, 
 body {
   font-family: 'Open Sans', sans-serif;
-  /*font-family: 'Roboto Slab', serif;*/
   font-size: 14px;
   font-weight: 400;
   color: #fff;
@@ -22,13 +21,20 @@ h1, h2, h3, h4, h5, h6 {
   margin: 10px 0;
 }
 
+/* Tables */
+
 table {
   width: 100%;
   border: none;
 }
 
-table td {
+table td,
+table th {
   border: none;
+}
+
+table thead {
+  background-color: transparent;
 }
 
 /* Containers */
@@ -55,7 +61,6 @@ table td {
 
 .bar {
   display: block;
-  background-color: rgba(255, 255, 255, 0.05);
 }
 
 .content {
@@ -130,6 +135,7 @@ nav .side i {
   padding: 0 25px;
   line-height: 48px;
   margin-bottom: 4px;
+  user-select: none;
   border-left: 4px solid transparent;
 }
 
@@ -147,7 +153,7 @@ nav .side i {
   background-color: rgba(255, 255, 255, 0.02);
 }
 
-.container-files .row:hover,
+.container-files .row:not(.unselectable):hover,
 .container-files .row.selected {
   background-color: #eee;
   color: #555;
@@ -159,7 +165,7 @@ nav .side i {
   margin-right: 24px;
 }
 
-.container-files td:nth-child(2) {
+.container-files td:last-child {
   text-align: right;
 }
 

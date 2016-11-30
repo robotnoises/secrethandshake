@@ -5,14 +5,20 @@
       <table>
         <thead>
           <tr>
-            <th></th>
+            <th>File</th>
+            <th>Message</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
-          <tr class="row" ng-repeat="f in files.working">
-            <td><i class="fa fa-file-text-o"></i><span ng-bind="f.name"></span></td>
-            <td ng-bind="f.lastModified"></td>
+          <tr class="row unselectable" ng-repeat="f in files.working">
+            <td>
+              <span ng-if="f.state === 2"><i class="fa fa-cloud-download"></i></span> <!-- Pending download -->
+              <span ng-if="f.state === 3 && f.error === 0"><i class="fa fa-exclamation"></i></span> <!-- Error, name conflict -->
+              <span ng-bind="f.name"></span>
+            </td>
+            <td>Name conflict</td>
+            <td><button class="btn">Rename</button></td>
           </tr>
         </tbody>
       </table>
