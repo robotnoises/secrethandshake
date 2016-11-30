@@ -9,6 +9,7 @@ const passphrase = require('./../services/passphrase');
 const message = require('./../services/message');
 const filesystem = require('./../services/filesystem');
 const sh = require('./../services/sh');
+const ERROR = require('./../services/error');
 
 let createdWin;
 
@@ -24,6 +25,7 @@ function ShFile(file) {
   this.lastModifiedDate = file.lastModifiedDate;
   this.size = file.size;
   this.type = file.type;
+  this.error = null;
 }
 
 /**
@@ -42,8 +44,8 @@ function encryptFile(file, passphrase) {
           message.send(createdWin.window, new message.Notification('filedone', savedFile));
           resolve();
         })
-        .catch(error => {
-          logger.error(error);
+        .catch((errorFile) => {
+          message.send(createdWin.window, new message.Notification('filedone', errorFile));
         });
     });
   } else {
@@ -56,6 +58,7 @@ function encryptFile(file, passphrase) {
  */
 
 // todo: unlink original source file after successfully encrypting
+// todo: namecheck before moving the file
 
 function processFiles(files) {  
   let movingFiles = [];

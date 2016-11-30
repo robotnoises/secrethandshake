@@ -9,14 +9,12 @@
     '$window', 
     '$timeout',
     'filesService', 
-    'Upload', 
     
     function (
       $scope, 
       $window, 
       $timeout,
-      filesService,
-      ngFileUploader
+      filesService
     ) {
     
     $scope.files = filesService.files;
@@ -54,7 +52,10 @@
       });
     };
 
-    $scope.consumeFiles = filesService.consumeFiles;
+    $scope.consumeFiles = ($files) => {
+      filesService.consumeFiles($files);
+      $scope.droppedFiles = [];
+    };
   }]);
 
 })(angular);

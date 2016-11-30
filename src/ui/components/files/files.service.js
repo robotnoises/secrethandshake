@@ -14,7 +14,8 @@
 
     filesService.files = {
       loaded: false,
-      value: []
+      working: [],
+      complete: []
     };
 
     filesService.consumeFiles = (files) => {
@@ -28,14 +29,15 @@
     messageService.on('filesloaded', (value) => {
       $timeout(() => {
         filesService.files.loaded = true;
-        filesService.files.value = value;
+        filesService.files.complete = value;
       });
     });
 
     messageService.on('filedone', (file) => {
       $window.console.log('filedone:', file);
       $timeout(() => {
-        filesService.files.value.push(file);
+        let list = (file.error !== null) ? 'working' : 'complete';
+        filesService.files[list].push(file);
       });
     });
 

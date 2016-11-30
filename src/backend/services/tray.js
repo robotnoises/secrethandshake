@@ -2,7 +2,7 @@
 
 const path = require('path'); 
 const testWindow = require('./../windows/test');
-const filesWindow = require('./../windows/files');
+const shWindow = require('./../windows/sh');
 
 /**
  * Globals
@@ -22,14 +22,14 @@ function createMenu() {
     // Main SH Window
     _menu.append(new nw.MenuItem({ 
       type: 'normal', 
-      label: 'Open Secret Handshake', 
-      click: filesWindow.show
+      label: 'Open', 
+      click: shWindow.show
     }));
 
     // Test harness application
     _menu.append(new nw.MenuItem({ 
       type: 'normal', 
-      label: 'Test App', 
+      label: 'Test', 
       click: testWindow.show
     }));
 

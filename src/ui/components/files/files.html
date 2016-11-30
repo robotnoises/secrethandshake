@@ -1,9 +1,32 @@
 <div id="files">
-  <div class="bar" ng-if="false"></div>  <!-- todo: need to iron-out the role for this bar -->
-  <div class="empty" ng-if="files.loaded && files.value.length === 0" ngf-select="consumeFiles($files)" ng-model="droppedFiles" ngf-multiple="true">
+  <div class="bar" ng-if="files.loaded && files.working.length">
+    <!-- Working files container -->
+    <div class="container-files" ng-if="files.loaded && files.working.length > 0">
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="row" ng-repeat="f in files.working">
+            <td><i class="fa fa-file-text-o"></i><span ng-bind="f.name"></span></td>
+            <td ng-bind="f.lastModified"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>  <!-- todo: need to iron-out the role for this bar -->
+  
+  <!-- If no files -->
+  <div class="empty" ng-if="files.loaded && files.complete.length === 0" ngf-select="consumeFiles($files)" ng-model="droppedFiles" ngf-multiple="true">
     <p>Click here or drag-in file(s)</p>
   </div>
-  <div class="container-files" ng-if="files.loaded && files.value.length > 0">
+
+  <!-- Main files container -->
+  <div class="container-files" ng-if="files.loaded && files.complete.length > 0">
+    <button class="btn" ngf-select="consumeFiles($files)" ng-model="droppedFiles" ngf-multiple="true">Add file(s)</button>
     <table>
       <thead>
         <tr>
@@ -12,13 +35,15 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="row" ng-class="{ selected: selectedFile._id === f._id }" ng-repeat="f in files.value" ng-click="select(f)">
+        <tr class="row" ng-class="{ selected: selectedFile._id === f._id }" ng-repeat="f in files.complete" ng-click="select(f)">
           <td><i class="fa fa-file-text-o"></i><span ng-bind="f.name"></span></td>
           <td ng-bind="f.lastModified"></td>
         </tr>
       </tbody>
     </table>
   </div>
+
+  <!-- Slideout -->
   <div class="slideout" ng-class="{ open: isSelected }">
     <file-details file="selectedFile"></file-details>
   </div>
