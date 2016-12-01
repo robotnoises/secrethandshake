@@ -37,6 +37,7 @@ let databases = {
 /**
  * Load all databases
  */
+
 function init() {
   return loadDb('passphrase', 'passphrase')
     .then(() => loadDb('passphraseTest', 'passphrase.test'))
@@ -48,25 +49,42 @@ function read(db, query) {
   return new Promise((resolve, reject) => {
     let q = query || {};
 
-    db.find(q, (err, docs) => {
-      if (err) {
-        reject(err);
+    db.find(q, (error, docs) => {
+      if (error) {
+        logger.error('db read error:', error);
+        reject(error);
       } else {
+        logger.info('db (' + db.filename + ') read success');
         resolve(docs || []);
       }
     });
   });
 }
 
+function update(db, fileId, updatedData) {
+  return new Promise((resolve, reject) => {
+    db.update({ _id: fileId }, updatedData, { multi: false, returnUpdatedDocs: true }, (error, numAffected, updatedDoc) => {
+      if (error) {
+        logger.error('db update error:', error);
+        reject(error);
+      } else {
+        logger.info('db (' + db.filename + ') update success');
+        resolve(updatedDoc);
+      }
+    });      
+  });
+}
 
 function remove(db, query) {
   return new Promise((resolve, reject) => {
     let q = query || {};
 
-    db.remove(q, { multi: true }, err => {
-      if (err) {
-        reject(err);
+    db.remove(q, { multi: true }, error => {
+      if (error) {
+        logger.error('db remove error:', error);
+        reject(error);
       } else {
+        logger.info('db (' + db.filename + ') remove success');
         resolve();
       }
     });
@@ -75,10 +93,10 @@ function remove(db, query) {
 
 function save(db, data) {
   return new Promise((resolve, reject) => {
-    db.insert(data, (err, savedDoc) => {
-      if (err) {
-        logger.error('db save error:', err);
-        reject(err);
+    db.insert(data, (error, savedDoc) => {
+      if (error) {
+        logger.error('db save error:', error);
+        reject(error);
       } else {
         logger.info('db (' + db.filename + ') save success');
         resolve(savedDoc);
@@ -91,6 +109,7 @@ module.exports = {
   databases: databases,
   init: init,
   read: read,
+  update: update,
   save: save,
   remove: remove
 };

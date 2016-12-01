@@ -3,13 +3,6 @@
 const os = require('os');
 const path = require('path');
 const fs = require('fs');
-const logger = require('./../../global/logger');
-
-/**
- * getHomeDirectory()
- * 
- * Find the User's default "home" directory in a platform agnostic manner
- */
 
 function verifyDir(pathToDir) {
   if (!fs.existsSync(pathToDir)) {
@@ -17,6 +10,15 @@ function verifyDir(pathToDir) {
   } else {
     return;
   }
+}
+
+function getCommandLineOpenCommand() {
+   switch (process.platform) { 
+      case 'darwin' : return 'open';
+      case 'win32' : return 'start';
+      case 'win64' : return 'start';
+      default : return 'xdg-open';
+   }
 }
 
 function getBaseDirectory() {
@@ -67,10 +69,23 @@ function moveToFiles(file) {
   });
 }
 
+function openFile(filePath) {
+  return new Promise((resolve, reject) => {
+    try {
+      let exec = require('child_process').exec;
+      exec(getCommandLineOpenCommand() + ' "' + filePath + '"');
+      resolve();
+    } catch (ex) {
+      reject(ex);
+    }
+  });
+}
+
 module.exports = {
   getBaseDirectory: getBaseDirectory,
   getLogsDirectory: getLogsDirectory,
   getDatabaseDirectory: getDatabaseDirectory,
   getFilesDirectory: getFilesDirectory,
-  moveToFiles: moveToFiles
+  moveToFiles: moveToFiles,
+  openFile: openFile
 };

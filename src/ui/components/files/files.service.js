@@ -24,6 +24,16 @@
       }
     };
 
+    filesService.openFile = (file) => {
+      if ($window.shbridge && $window.shbridge.openFile) {
+        $window.shbridge.openFile(file);
+      } else {
+        console.error('Bridge method "openFile" not found');
+      }
+    }
+
+    // Notification listeners
+
     messageService.on('filesloaded', (value) => {
       $timeout(() => {
         filesService.files.loaded = true;
@@ -37,6 +47,10 @@
         let list = (file.state === 4) ? 'working' : 'complete';
         filesService.files[list].push(file);
       });
+    });
+
+    messageService.on('fileupdated', (value) => {
+      $window.console.log('update!', value);
     });
 
     return filesService;

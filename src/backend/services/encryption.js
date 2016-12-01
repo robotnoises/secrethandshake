@@ -42,7 +42,11 @@ function translate(pathToFile, passphrase, suffix, decipher) {
   input.pipe(algo).pipe(output);
 
   return new Promise((resolve, reject) => {
-    output.on('close', () => resolve());
+    output.on('close', () => {
+      let verb = decipher ? 'decrypted' : 'encrypted';
+      logger.info('Successfully ' + verb + 'file ' + pathToFile);
+      resolve();
+    });
     output.on('error', error => reject(error));
   });
 }
@@ -129,8 +133,9 @@ function encrypt(pathToFile, passphrase) {
 }
 
 // decipher a file
-function decrypt(pathToEncFile, passphrase) {
-  return translate(pathToEncFile, passphrase, '', true);
+function decrypt(pathToFile, passphrase) {
+  let encPath = pathToFile + '.enc'; // todo: not sure if I want to handle this here...
+  return translate(encPath, passphrase, '', true);
 }
 
 module.exports = {

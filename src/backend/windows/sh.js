@@ -42,6 +42,25 @@ function ShPassphrase(hash) {
  * Private Window functions
  */
 
+function openFile(file) {
+  let f = new ShFile(file);
+  return encryption.decrypt(f.shPath, 'foobarbaz')
+    .then(() => {
+      return filesystem.openFile(f.shPath);
+    })
+    .then(() => {
+      f.state = FILESTATE.DECRYPTED;
+      return db.update(db.databases.files, file._id, f);
+    })
+    .then((updatedFile) => {
+      // Notify UI
+      message.send(createdWin.window, new message.Notification('fileupdated', updatedFile));
+    })
+    .catch((error) => {
+      logger.error(error);
+    });
+}
+
 function moveFile(file) {
   return db.read(db.databases.files, { name: file.name })
     .then((docs) => {
@@ -89,7 +108,7 @@ function encryptFile(file, passphrase) {
 
 function setPassphrase(input) {
   logger.info('Setting passphrase');
-  // todo: wipe-out old passphrase logic
+  // todo: logic for wiping-out old passphrase after update
   return passphrase.hash(input)
     .then((hashed) => {
       return db.save(db.databases.passphrase, new ShPassphrase(hashed));
@@ -143,11 +162,13 @@ function createNew(callback) {
     });
 
     win.on('close', () => {
+      logger.info('Hidding main window');
       win.hide();
     });
 
     // Bridge methods
     bridge.setItem(win.window, 'consumeFiles', processFiles);
+    bridge.setItem(win.window, 'openFile', openFile);
     bridge.setItem(win.window, 'setPassphrase', setPassphrase);
     bridge.setItem(win.window, 'checkPassphrase', passphrase.check);
   });
