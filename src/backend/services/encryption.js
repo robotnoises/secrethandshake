@@ -4,8 +4,6 @@ const crypto = require('crypto');
 const fs = require('fs');
 const logger = require('./../../global/logger');
 
-// todo: rename from sh.js
-
 /**
  * Private
  */

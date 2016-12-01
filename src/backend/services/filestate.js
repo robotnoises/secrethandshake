@@ -2,9 +2,10 @@
 
 const FILESTATE = {
   ENCRYPTED: 0,
-  PROCESSING: 1,
-  PENDING: 2,
-  ERROR: 3
+  DECRYPTED: 1,
+  PROCESSING: 2,
+  PENDING: 3,
+  ERROR: 4
 };
 
 module.exports = FILESTATE;

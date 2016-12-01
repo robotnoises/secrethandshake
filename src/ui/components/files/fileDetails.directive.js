@@ -15,7 +15,7 @@
       }, 
       template: 
       '<div class="container-file-details">' +
-      ' <p ng-bind="file.name"></p>' + 
+      '  <h1 ng-bind="file.name"></h1>' + 
       '</div>' 
     }
   });

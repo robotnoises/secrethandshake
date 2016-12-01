@@ -56,7 +56,7 @@ function create() {
     _tray = new nw.Tray({
       icon: 'src/assets/images/tray2.png'
     });
-    _tray.tooltip = 'shhh';
+    _tray.tooltip = 'sh.';
     createMenu();
   }
 }

@@ -19,6 +19,8 @@ let createdWin;
  * Models
  */
 
+// todo: move these
+
 function ShFile(file) {
   this.name = file.name;
   this.path = file.path;

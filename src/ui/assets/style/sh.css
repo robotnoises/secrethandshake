@@ -3,8 +3,8 @@ body {
   font-family: 'Open Sans', sans-serif;
   font-size: 14px;
   font-weight: 400;
-  color: #fff;
-  background-color: #222;
+  color: #333;
+  background-color: #eee;
   height: 100%;
   overflow: hidden;
 }
@@ -13,24 +13,17 @@ a {
   cursor: default;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  color: #fff;
-  display: block;
-  font-weight: 600;
-  border-bottom: 4px solid #fff;
-  margin: 10px 0;
-}
-
 /* Tables */
 
 table {
+  margin: 0;
   width: 100%;
-  border: none;
+  border: 3px solid #333;
 }
 
 table td,
 table th {
-  border: none;
+  border-right: none;
 }
 
 table thead {
@@ -51,7 +44,7 @@ textarea:focus {
 }
 
 input:not([type="submit"]) {
-  height: 42px; 
+  height: 43px; 
 }
 
 /* Containers */
@@ -76,10 +69,6 @@ input:not([type="submit"]) {
   align-self: stretch;
 }
 
-.bar {
-  display: block;
-}
-
 .content {
   padding: 0 75px;
   overflow: scroll;
@@ -98,14 +87,14 @@ nav .user {
 }
 
 nav .side i {
-  color: #222;
+  color: #333;
 }
 
 .side {
   height: 100%;
   width: 65px;
-  background-color: #27ae60;
-  color: #fff;
+  background-color: #fff;
+  color: #333;
 }
 
 .side .navlink {
@@ -118,7 +107,7 @@ nav .side i {
 
 .navlink a {
   display: inline-block;
-  color: #fff;
+  color: #333;
   height: 65px;
   line-height: 65px;
   width: 100%;
@@ -128,23 +117,21 @@ nav .side i {
 
 .navlink i {
   line-height: 65px;
-  font-size: 22px;
+  font-size: 23px;
 }
 
 .navlink a:hover,
 .navlink a:active,
 .navlink a:focus {
-  background: #222;
+  /*background-color: #eee;*/
 }
 
 .navlink a.active {
-  background: #222;
+  /*background-color: #eee;*/
 }
 
 .container-files {
-  margin-top: 25px;
-  margin-bottom: 75px;
-  color: #eee;
+  color: #333;
   overflow-y: scroll;
 }
 
@@ -153,7 +140,6 @@ nav .side i {
   line-height: 48px;
   margin-bottom: 4px;
   user-select: none;
-  border-left: 4px solid transparent;
 }
 
 .container-files .row {
@@ -163,17 +149,17 @@ nav .side i {
 }
 
 .container-files .row:nth-child(odd) {
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 .container-files .row:nth-child(even) {
-  background-color: rgba(255, 255, 255, 0.02);
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 .container-files .row:not(.unselectable):hover,
 .container-files .row.selected {
-  background-color: #eee;
-  color: #555;
+  background-color: #fff;
+  color: #333;
 }
 
 .container-files .row .fa {
@@ -186,36 +172,72 @@ nav .side i {
   text-align: right;
 }
 
-.container.file-details {
-  /* todo */
+.container-file-details {
+  padding: 25px;
 }
 
-.empty {
+.container-file-details h1 {
+  color: #333;  
+  font-size: 1.25em;
+  font-weight: 600;
+  text-align: center;
+  word-wrap: break-word;
+  word-break: break-all;
+  white-space: normal;
+  line-height: 1.25em;
+}
+
+.dropzone {
   position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 65px;
-  color: transparent;
+  top: 8px;
+  right: 4px;
+  bottom: 4px;
+  left: 69px;
+  color: #fff;
   font-size: 3em;
   font-weight: 600;
   background: url(../images/file-add.svg) center center no-repeat;
   background-size: 96px 96px;
-  cursor: pointer;
+  user-select: none;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: background 200ms, color 200ms;
 }
 
-.empty p {
+.dropzone p {
   user-select: none;
   text-align: center;
 }
 
-.empty:hover {
-  background-color: #333;
-  color: #222;
+.dropzone.disabled {
+  color: transparent;
+  pointer-events: none;
+  background: none;
+}
+
+.dropzone:not(.disabled):hover {
+  background-color: #fff;
+  color: transparent;
+  cursor: pointer;
+  border: 3px dashed #ccc;
+}
+
+.draggable {
+  transition: background 200ms, color 200ms;
+  background: url(../images/file-add.svg) center center no-repeat;
+}
+
+.draggable.dragging {
+  background-color: #fff !important;
+  color: transparent !important;
+  cursor: -webkit-grabbing !important;
+  background-size: 96px 96px;
+  border: 3px dashed #ccc;
+}
+
+.draggable.dragging table {
+  visibility: hidden;
 }
 
 .slideout {
@@ -224,10 +246,11 @@ nav .side i {
   right: 0;
   bottom: 0;
   left: auto;
+  border-left: 3px solid #333;
   margin-right: -350px;
   width: 350px;
-  background-color: #eee;
-  color: #555;
+  background-color: #fff;
+  color: #333;
   z-index: 1;
   transition: margin 200ms ease-in;
 }
@@ -254,8 +277,11 @@ nav .side i {
 
 button.btn {
   background-color: transparent;
-  border: 2px solid #fff;
-  line-height: 36px;
+  border: 3px solid #333;
+  color: #333;
+  font-weight: 600;
+  line-height: 32px;
+  padding: 0 2em;
 }
 
 /* Colors and Gradients */
@@ -300,4 +326,10 @@ button.btn {
 
 .arrow {
   cursor: default;
+}
+
+.ruler {
+  display: block;
+  height: 3px;
+  background-color: #333;
 }

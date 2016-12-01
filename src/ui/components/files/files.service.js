@@ -34,7 +34,7 @@
     messageService.on('filedone', (file) => {
       $window.console.log('filedone:', file);
       $timeout(() => {
-        let list = (file.state === 3) ? 'working' : 'complete';
+        let list = (file.state === 4) ? 'working' : 'complete';
         filesService.files[list].push(file);
       });
     });
