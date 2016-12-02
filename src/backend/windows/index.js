@@ -8,6 +8,7 @@ function Options(optionOverrides) {
   this.title = ' ';
   this.height = optionOverrides.height || 700;
   this.width = optionOverrides.width || 900;
+  this.frame = true;
 }
 
 /**

@@ -47,9 +47,11 @@
 
     $scope.deselect = () => {
       $timeout(() => {
-        $scope.selectedFile = {};
         $scope.isSelected = false;
       });
+      $timeout(() => {
+        $scope.selectedFile = {};
+      }, 200);
     };
 
     $scope.consumeFiles = ($files) => {

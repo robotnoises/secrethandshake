@@ -25,7 +25,7 @@
     </div>
   </div>  <!-- todo: need to iron-out the role for this bar -->
 
-  <button class="btn" ngf-select="consumeFiles($files)" ng-model="droppedFiles" ngf-multiple="true">Add file(s)</button>
+  <!--<button class="btn" ngf-select="consumeFiles($files)" ng-model="droppedFiles" ngf-multiple="true">Add file(s)</button>-->
 
   <!-- Main files container -->
   <div class="container-files draggable" ngf-drag-over-class="'dragging'" ngf-drop="consumeFiles($files)" ng-model="droppedFiles" ngf-multiple="true" ng-if="files.loaded && files.complete.length > 0">
@@ -33,12 +33,18 @@
       <thead>
         <tr>
           <th></th>
+          <th>Name</th>
           <th></th>
+          <th>Size</th>
+          <th>Last Modified</th>
         </tr>
       </thead>
       <tbody>
         <tr class="row" ng-class="{ selected: selectedFile._id === f._id }" ng-repeat="f in files.complete" ng-click="select(f)">
-          <td><i class="fa fa-file-text-o"></i><span ng-bind="f.name"></span></td>
+          <td><i class="fa fa-file-text-o"></i></td>
+          <td class="name" ng-bind="f.name"></td>
+          <td class="filestate"><i class="fa fa-lock" aria-hidden="true"></i></td>
+          <td ng-bind="f.size"></td>
           <td ng-bind="f.lastModified"></td>
         </tr>
       </tbody>
@@ -52,7 +58,7 @@
 
   <!-- Slideout -->
   <div class="slideout" ng-class="{ open: isSelected }">
-    <div class="ruler"></div>
+    <!--<div class="ruler"></div>-->
     <file-details file="selectedFile"></file-details>
   </div>
 </div>
