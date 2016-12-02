@@ -44,8 +44,8 @@
           <td><i class="fa fa-file-text-o"></i></td>
           <td class="name" ng-bind="f.name"></td>
           <td class="filestate"><i class="fa fa-lock" aria-hidden="true"></i></td>
-          <td ng-bind="f.size"></td>
-          <td ng-bind="f.lastModified"></td>
+          <td ng-bind="formatFileSize(f.size)"></td>
+          <td ng-bind="moment(f.lastModified).format('MMM DD, YYYY h:mm a')"></td>
         </tr>
       </tbody>
     </table>

@@ -18,6 +18,8 @@
     ) {
     
     $scope.files = filesService.files;
+    $scope.moment = $window.moment;
+    $scope.formatFileSize = filesService.formatBytes;
     $scope.droppedFiles = {};
     $scope.selectedFile = {};
     $scope.isSelected = false;

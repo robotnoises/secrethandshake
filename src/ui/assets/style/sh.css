@@ -26,6 +26,11 @@ table {
   font-size: 12px;
 }
 
+table.fixed {
+  table-layout: fixed;
+  left: 65px;
+}
+
 table td,
 table th {
   border-right: none;
@@ -46,13 +51,17 @@ table thead {
   background-color: #e5e5e5;
 }
 
-table td.name {
+table {
   font-weight: 600;
 }
 
 table td.filestate {
   font-size: 6px;
   color: #febd3e;
+}
+
+table i.fa {
+  text-shadow: 2px 2px 0px #fff;
 }
 
 /* Forms */
@@ -71,6 +80,7 @@ textarea:focus {
 input:not([type="submit"]) {
   height: 43px; 
 }
+
 
 /* Containers */
 
@@ -201,10 +211,10 @@ nav .side i {
   margin-left: 24px;
 }
 
-.container-files th:last-child,
+/*.container-files th:last-child,
 .container-files td:last-child {
   text-align: right;
-}
+}*/
 
 .container-file-details {
   border-top: 3px solid #ddd;
@@ -224,7 +234,7 @@ nav .side i {
 
 .dropzone {
   position: fixed;
-  top: 8px;
+  top: 52px;
   right: 4px;
   bottom: 4px;
   left: 69px;
