@@ -112,7 +112,7 @@ div {
   flex-basis: auto;
   flex-wrap: nowrap;
   align-self: stretch;
-  padding-bottom: 48px;
+  padding-bottom: 65px;
 }
 
 nav {
@@ -163,7 +163,7 @@ nav .side i {
 
 .toolbar {
   background-color: #fff;
-  height: 48px;
+  height: 65px;
   line-height: 48px;
 }
 
@@ -173,7 +173,7 @@ nav .side i {
 }
 
 .container-files table {
-  margin-bottom: -48px;
+  margin-bottom: -65px;
 }
 
 .container-files .row {
@@ -199,7 +199,7 @@ nav .side i {
 }
 
 .container-file-details {
-  border-top: 3px solid #ddd;
+  /*border-top: 3px solid #ddd;*/
   padding: 25px;
 }
 
@@ -269,11 +269,11 @@ nav .side i {
 
 .slideout {
   position: fixed;
-  top: 48px;
+  top: 65px;
   right: 0;
   bottom: 0;
   left: auto;
-  border-left: 3px solid #ddd;
+  /*border-left: 3px solid #ddd;*/
   margin-right: -350px;
   width: 350px;
   background-color: #fff;
