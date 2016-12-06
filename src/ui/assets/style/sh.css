@@ -8,7 +8,7 @@ body {
   font-size: 14px;
   font-weight: 400;
   color: #333;
-  background-color: #eee;
+  background-color: #fff;
   height: 100%;
   overflow: hidden;
 }
@@ -39,7 +39,7 @@ table th:first-child {
 }
 
 table thead {
-  background-color: rgba(50, 50, 50, 0.1);
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 table td.name {
@@ -83,6 +83,10 @@ input:not([type="submit"]) {
 
 div {
   overflow: hidden;
+}
+
+.content {
+  background-color: #eee;
 }
 
 .container {
@@ -150,6 +154,12 @@ nav .side i {
   width: 100%;
   text-align: center;
   transition: background 300ms;
+  border-left: 3px solid transparent;
+  border-right: 3px solid transparent;
+}
+
+.navlink a.active {
+  border-left: 3px solid #333;
 }
 
 .navlink i {
@@ -214,7 +224,7 @@ nav .side i {
   bottom: 0;
   left: 65px;
   color: #fff;
-  font-size: 2em;
+  font-size: 1em;
   font-weight: 600;
   background: url(../images/file-add.svg) center center no-repeat;
   background-size: 96px 96px;
