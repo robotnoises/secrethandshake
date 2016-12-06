@@ -1,32 +1,6 @@
-<div id="files">
-  <div class="bar" ng-if="files.loaded && files.working.length">
-    <!-- Working files container -->
-    <div class="container-files" ng-if="files.loaded && files.working.length > 0">
-      <table>
-        <thead>
-          <tr>
-            <th>File</th>
-            <th>Message</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="row unselectable" ng-repeat="f in files.working">
-            <td>
-              <span ng-if="f.state === 3"><i class="fa fa-cloud-download"></i></span> <!-- Pending download -->
-              <span ng-if="f.state === 4 && f.error === 0"><i class="fa fa-exclamation"></i></span> <!-- Error, name conflict -->
-              <span ng-bind="f.name"></span>
-            </td>
-            <td>Name conflict</td>
-            <td><button class="btn">Rename</button></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>  <!-- todo: need to iron-out the role for this bar -->
-
+<div id="files" class="container draggable" ngf-drag-over-class="'dragging'" ngf-drop="consumeFiles($files)" ng-model="droppedFiles" ngf-multiple="true">
   <!-- Main files container -->
-  <div class="container-files draggable" ngf-drag-over-class="'dragging'" ngf-drop="consumeFiles($files)" ng-model="droppedFiles" ngf-multiple="true" ng-if="files.loaded && files.complete.length > 0">
+  <div class="container-files col" ng-if="files.loaded && files.complete.length > 0">
     <table>
       <thead>
         <tr>
@@ -59,7 +33,36 @@
 
   <!-- Slideout -->
   <div class="slideout" ng-class="{ open: isSelected }">
-    <!--<div class="ruler"></div>-->
     <file-details file="selectedFile"></file-details>
   </div>
 </div>
+
+
+
+
+
+
+  <!--<div class="bar" ng-if="files.loaded && files.working.length">
+    <div class="container-files" ng-if="files.loaded && files.working.length > 0">
+      <table>
+        <thead>
+          <tr>
+            <th>File</th>
+            <th>Message</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="row unselectable" ng-repeat="f in files.working">
+            <td>
+              <span ng-if="f.state === 3"><i class="fa fa-cloud-download"></i></span> 
+              <span ng-if="f.state === 4 && f.error === 0"><i class="fa fa-exclamation"></i></span> 
+              <span ng-bind="f.name"></span>
+            </td>
+            <td>Name conflict</td>
+            <td><button class="btn">Rename</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>   -->

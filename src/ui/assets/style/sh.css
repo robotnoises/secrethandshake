@@ -88,7 +88,6 @@ input:not([type="submit"]) {
   height: 43px; 
 }
 
-
 /* Containers */
 
 div {
@@ -113,10 +112,7 @@ div {
   flex-basis: auto;
   flex-wrap: nowrap;
   align-self: stretch;
-}
-
-.content {
-  overflow-y: scroll;
+  padding-bottom: 48px;
 }
 
 nav {
@@ -140,8 +136,6 @@ nav .side i {
   width: 65px;
   background-color: #fff;
   color: #333;
-  /*box-shadow: 3px 0 0 rgba(0,0,0,0.1);*/
-  border-right: 3px solid #ddd;
 }
 
 .side .navlink {
@@ -167,16 +161,6 @@ nav .side i {
   font-size: 22px;
 }
 
-/*.navlink a:hover,
-.navlink a:active,
-.navlink a:focus {
-  background-color: #eee;
-}
-
-.navlink a.active {
-  background-color: #eee;
-}*/
-
 .toolbar {
   background-color: #fff;
   height: 48px;
@@ -185,7 +169,11 @@ nav .side i {
 
 .container-files {
   color: #333;
-  border-top: 3px solid #ddd;
+  overflow-y: auto;
+}
+
+.container-files table {
+  margin-bottom: -48px;
 }
 
 .container-files .row {
@@ -198,14 +186,6 @@ nav .side i {
   border-bottom: 1px solid #e5e5e5;
 }
 
-/*.container-files .row:nth-child(odd) {
-  background-color: rgba(0, 0, 0, 0.02);
-}
-
-.container-files .row:nth-child(even) {
-  background-color: rgba(0, 0, 0, 0.05);
-}*/
-
 .container-files .row:not(.unselectable):hover,
 .container-files .row.selected {
   background-color: #fff;
@@ -217,11 +197,6 @@ nav .side i {
   font-size: 16px;
   margin-left: 24px;
 }
-
-/*.container-files th:last-child,
-.container-files td:last-child {
-  text-align: right;
-}*/
 
 .container-file-details {
   border-top: 3px solid #ddd;
