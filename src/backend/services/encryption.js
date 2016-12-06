@@ -97,7 +97,7 @@ function verify(pathToFile, passphrase) {
   });
 }
 
-function removeDecryptedFiles(pathToFile) {
+function removeFile(pathToFile) {
   return new Promise((resolve, reject) => {    
     try {
       logger.info('Unlinking:', pathToFile + '.dec');
@@ -125,7 +125,7 @@ function encrypt(pathToFile, passphrase) {
     })
     .then((filesMatch) => {
       if (filesMatch) {
-        return removeDecryptedFiles(pathToFile);
+        return removeFile(pathToFile);
       } else {
         return Promise.reject('Unable to verify encrypted files');
       }
@@ -134,8 +134,11 @@ function encrypt(pathToFile, passphrase) {
 
 // decipher a file
 function decrypt(pathToFile, passphrase) {
-  let encPath = pathToFile + '.enc'; // todo: not sure if I want to handle this here...
-  return translate(encPath, passphrase, '', true);
+  let encPath = pathToFile + '.enc';
+  return translate(encPath, passphrase, '', true)
+    .then(() => {
+      return removeFile(encPath);
+    });
 }
 
 module.exports = {

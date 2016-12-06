@@ -29,8 +29,8 @@ function ShFile(file) {
   this.lastModifiedDate = file.lastModifiedDate;
   this.size = file.size;
   this.type = file.type;
-  this.error = null;
-  this.state = FILESTATE.PROCESSING;
+  this.error = (typeof file.error !== 'undefined') ? file.error : null;
+  this.state = (typeof file.state !== 'undefined') ? file.state : FILESTATE.PROCESSING;
 }
 
 function ShPassphrase(hash) {
@@ -44,21 +44,25 @@ function ShPassphrase(hash) {
 
 function openFile(file) {
   let f = new ShFile(file);
-  return encryption.decrypt(f.shPath, 'foobarbaz')
-    .then(() => {
-      return filesystem.openFile(f.shPath);
-    })
-    .then(() => {
-      f.state = FILESTATE.DECRYPTED;
-      return db.update(db.databases.files, file._id, f);
-    })
-    .then((updatedFile) => {
-      // Notify UI
-      message.send(createdWin.window, new message.Notification('fileupdated', updatedFile));
-    })
-    .catch((error) => {
-      logger.error(error);
-    });
+  if (f.state === FILESTATE.DECRYPTED) {
+    return filesystem.openFile(f.shPath);
+  } else {
+    return encryption.decrypt(f.shPath, 'foobarbaz')
+      .then(() => {
+        return filesystem.openFile(f.shPath);
+      })
+      .then(() => {
+        f.state = FILESTATE.DECRYPTED;
+        return db.update(db.databases.files, file._id, f);
+      })
+      .then((updatedFile) => {
+        // Notify UI
+        message.send(createdWin.window, new message.Notification('fileupdated', updatedFile));
+      })
+      .catch((error) => {
+        logger.error(error);
+      });
+  }
 }
 
 function moveFile(file) {
@@ -71,8 +75,8 @@ function moveFile(file) {
         file.error = ERROR.FILE_NAMECONFLICT;
         file.state = FILESTATE.ERROR;
 
-        // Notify UI
-        message.send(createdWin.window, new message.Notification('filedone', file));
+        // // Notify UI
+        // message.send(createdWin.window, new message.Notification('filedone', file));
 
         // If the file is not moved, resolve with null, which will be checked in 
         // the subsequent "encryptFile" function.
@@ -84,11 +88,10 @@ function moveFile(file) {
     });
 }
 
-function encryptFile(file, passphrase) {
+function encryptNewFile(file, passphrase) {
   if (passphrase) {
     return new Promise((resolve) => {
-      logger.info('Encrypting file:', file.name);
-      encryption.encrypt(path.join(filesystem.getFilesDirectory(), file.name), passphrase)
+      encryption.encrypt(file.shPath, passphrase)
         .then(() => {
           file.state = FILESTATE.ENCRYPTED; 
           return db.save(db.databases.files, file);
@@ -96,6 +99,29 @@ function encryptFile(file, passphrase) {
         .then(savedFile => {
           message.send(createdWin.window, new message.Notification('filedone', savedFile));
           resolve(savedFile);
+        })
+        .catch(error => {
+          logger.error(error);
+        });
+    });
+  } else {
+    return Promise.reject('Passphrase is required');
+  }
+}
+
+function reencryptFile(file, passphrase) {
+  if (passphrase) {
+    return new Promise((resolve) => {
+      let shFile = new ShFile(file);
+      encryption.encrypt(shFile.shPath, passphrase)
+        .then(() => {
+          shFile.state = FILESTATE.ENCRYPTED; 
+          return db.update(db.databases.files, file._id, shFile);
+        })
+        .then(updatedFile => {
+          if (updatedFile) {
+            message.send(createdWin.window, new message.Notification('fileupdated', updatedFile));
+          }
         })
         .catch(error => {
           logger.error(error);
@@ -136,7 +162,7 @@ function processFiles(files) {
         // Some files will not be moved due to name conflicts and errors.
         // If that is the case, the returned value will be null.
         if (movedFiles[j]) {
-          encryptingFiles.push(encryptFile(movedFiles[j], 'foobarbaz'));
+          encryptingFiles.push(encryptNewFile(movedFiles[j], 'foobarbaz')); // todo: accept this from User
         }
       }
       return Promise.all(encryptingFiles);
@@ -168,6 +194,7 @@ function createNew(callback) {
 
     // Bridge methods
     bridge.setItem(win.window, 'consumeFiles', processFiles);
+    bridge.setItem(win.window, 'reencryptFile', reencryptFile);
     bridge.setItem(win.window, 'openFile', openFile);
     bridge.setItem(win.window, 'setPassphrase', setPassphrase);
     bridge.setItem(win.window, 'checkPassphrase', passphrase.check);

@@ -57,7 +57,14 @@ table {
 
 table td.filestate {
   font-size: 6px;
+}
+
+table td.filestate i {
   color: #febd3e;
+}
+
+table td.filestate.filelocked i {
+  color: #333;
 }
 
 table i.fa {

@@ -68,7 +68,7 @@ function update(db, fileId, updatedData) {
         logger.error('db update error:', error);
         reject(error);
       } else {
-        logger.info('db (' + db.filename + ') update success');
+        logger.info('db (' + db.filename + ') updated ' + numAffected + ' doc(s)');
         resolve(updatedDoc);
       }
     });      

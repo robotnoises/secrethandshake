@@ -25,8 +25,6 @@
     </div>
   </div>  <!-- todo: need to iron-out the role for this bar -->
 
-  <!--<button class="btn" ngf-select="consumeFiles($files)" ng-model="droppedFiles" ngf-multiple="true">Add file(s)</button>-->
-
   <!-- Main files container -->
   <div class="container-files draggable" ngf-drag-over-class="'dragging'" ngf-drop="consumeFiles($files)" ng-model="droppedFiles" ngf-multiple="true" ng-if="files.loaded && files.complete.length > 0">
     <table>
@@ -43,7 +41,10 @@
         <tr class="row" ng-class="{ selected: selectedFile._id === f._id }" ng-repeat="f in files.complete" ng-click="select(f)">
           <td><i class="fa fa-file-text-o"></i></td>
           <td class="name" ng-bind="f.name"></td>
-          <td class="filestate"><i class="fa fa-lock" aria-hidden="true"></i></td>
+          <td class="filestate" ng-class="{ filelocked: f.state === 0 }" >
+            <i ng-if="f.state === 0" class="fa fa-lock" aria-hidden="true"></i>
+            <i ng-if="f.state === 1" class="fa fa-unlock" aria-hidden="true"></i>
+          </td>
           <td ng-bind="formatFileSize(f.size)"></td>
           <td ng-bind="moment(f.lastModified).format('MMM DD, YYYY h:mm a')"></td>
         </tr>
