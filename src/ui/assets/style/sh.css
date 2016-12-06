@@ -26,11 +26,6 @@ table {
   font-size: 12px;
 }
 
-table.fixed {
-  table-layout: fixed;
-  left: 65px;
-}
-
 table td,
 table th {
   border-right: none;
@@ -216,12 +211,12 @@ nav .side i {
 
 .dropzone {
   position: fixed;
-  top: 52px;
-  right: 4px;
-  bottom: 4px;
-  left: 69px;
+  top: 65px;
+  right: 0;
+  bottom: 0;
+  left: 65px;
   color: #fff;
-  font-size: 3em;
+  font-size: 2em;
   font-weight: 600;
   background: url(../images/file-add.svg) center center no-repeat;
   background-size: 96px 96px;
@@ -248,6 +243,29 @@ nav .side i {
   color: transparent;
   cursor: pointer;
   border: 3px dashed #ccc;
+}
+
+.dropzone:not(.disabled) .spinnything,
+.draggable .spinnything {
+  opacity: 0;
+  position: fixed;
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  background-color: transparent;
+  border: 5px dashed #e5e5e5;
+  transition: opacity 1000ms;
+}
+
+.dropzone:not(.disabled):hover .spinnything,
+.draggable.dragging .spinnything {
+  opacity: 1;
+  animation: spinny 2000ms infinite linear;
+}
+
+@keyframes spinny {
+  from { transform:rotate(0deg); }
+  to { transform:rotate(360deg); }
 }
 
 .draggable {

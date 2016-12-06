@@ -28,6 +28,7 @@
 
   <!-- If no files (drag or click) -->
   <div class="dropzone" ng-class="{ disabled : files.loaded && files.complete.length > 0 }" ngf-drop="consumeFiles($files)" ngf-select="consumeFiles($files)" ng-model="droppedFiles" ngf-multiple="true">
+    <div class="spinnything"></div>
     <p>Click here or drag-in file(s)</p>
   </div>
 
