@@ -1,4 +1,4 @@
-<div id="files" class="container draggable" ngf-drag-over-class="'dragging'" ngf-drop="consumeFiles($files)" ng-model="droppedFiles" ngf-multiple="true">
+<div id="files" class="container draggable" ng-class="{ darken: isSelected }" ngf-drag-over-class="'dragging'" ngf-drop="consumeFiles($files)" ng-model="droppedFiles" ngf-multiple="true">
   <!-- Main files container -->
   <div class="container-files col" ng-if="files.loaded && files.complete.length > 0">
     <table>
@@ -12,7 +12,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="row" ng-class="{ selected: selectedFile._id === f._id }" ng-repeat="f in files.complete" ng-click="select(f)">
+        <tr class="row" ng-class="{ selected: (isSelected && selectedFile._id === f._id), unselected: (isSelected && selectedFile._id !== f._id) }" ng-repeat="f in files.complete" ng-click="select(f)">
           <td><i class="fa fa-file-text-o"></i></td>
           <td class="name" ng-bind="f.name"></td>
           <td class="filestate" ng-class="{ filelocked: f.state === 0 }" >

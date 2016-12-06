@@ -29,10 +29,6 @@ table {
 table td,
 table th {
   border-right: none;
-}
-
-table td,
-table th {
   padding: 0 24px;
 }
 
@@ -43,10 +39,10 @@ table th:first-child {
 }
 
 table thead {
-  background-color: #e5e5e5;
+  background-color: rgba(50, 50, 50, 0.1);
 }
 
-table {
+table td.name {
   font-weight: 600;
 }
 
@@ -62,7 +58,7 @@ table td.filestate.filelocked i {
   color: #333;
 }
 
-table i.fa {
+table tr:not(.unselected) i.fa {
   text-shadow: 2px 2px 0px #fff;
 }
 
@@ -96,6 +92,11 @@ div {
   flex-grow: 1;
   height: 100%;
   overflow: hidden;
+  transition: background 200ms;
+}
+
+.container.darken {
+  background-color: #555;
 }
 
 .col {
@@ -181,6 +182,10 @@ nav .side i {
   border-bottom: 1px solid #e5e5e5;
 }
 
+.container-files .row.unselected {
+  border-bottom: 1px solid #444;
+}
+
 .container-files .row:not(.unselectable):hover,
 .container-files .row.selected {
   background-color: #fff;
@@ -194,7 +199,6 @@ nav .side i {
 }
 
 .container-file-details {
-  /*border-top: 3px solid #ddd;*/
   padding: 25px;
 }
 
@@ -253,7 +257,7 @@ nav .side i {
   width: 200px;
   border-radius: 50%;
   background-color: transparent;
-  border: 5px dashed #e5e5e5;
+  border: 5px dashed rgba(100, 100, 100, 0.1);
   transition: opacity 1000ms;
 }
 
@@ -270,14 +274,16 @@ nav .side i {
 
 .draggable {
   transition: background 200ms, color 200ms;
+  background-color: inherit;
+  background-size: 0px 0px !important;
   background: url(../images/file-add.svg) center center no-repeat;
 }
 
 .draggable.dragging {
   background-color: #fff !important;
   color: transparent !important;
+  background-size: 96px 96px !important;
   cursor: -webkit-grabbing !important;
-  background-size: 96px 96px;
   border: 3px dashed #ccc;
 }
 
@@ -291,7 +297,6 @@ nav .side i {
   right: 0;
   bottom: 0;
   left: auto;
-  /*border-left: 3px solid #ddd;*/
   margin-right: -350px;
   width: 350px;
   background-color: #fff;
@@ -302,6 +307,11 @@ nav .side i {
 
 .slideout.open {
   margin-right: 0;
+  transition: margin 200ms ease-out;
+}
+
+.dragging .slideout.open {
+  margin-right: -350px;
   transition: margin 200ms ease-out;
 }
 
