@@ -157,12 +157,6 @@ nav .side i {
   font-size: 22px;
 }
 
-.toolbar {
-  background-color: #fff;
-  height: 65px;
-  line-height: 48px;
-}
-
 .container-files {
   color: #333;
   overflow-y: auto;
@@ -315,17 +309,59 @@ nav .side i {
   transition: margin 200ms ease-out;
 }
 
-.backdrop {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: -1;
-}
-
 .padding {
   padding: 0px 18px;
+}
+
+.toolbar {
+  background-color: #fff;
+  height: 65px;
+  line-height: 48px;
+}
+
+.toolbar .side {
+  background-color: #febd3e;
+}
+
+.toolbar .side i {
+  color: rgba(0,0,0,0.7);
+}
+
+.searchbar {
+  display: inline-flex;
+  background-color: #febd3e;
+  color: #fff;
+  border-radius: 16px;
+  padding: 0 12px;
+  width: 300px;
+  height: 32px;
+  align-self: flex-end;
+}
+
+.searchbar i {
+  line-height: 32px;
+}
+
+.searchbar input,
+.searchbar input:focus {
+  background-color: transparent;
+  line-height: 32px;
+  height: 32px;
+  font-weight: 600;
+}
+
+.toolbar-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: auto;
+  flex-wrap: nowrap;
+  align-self: stretch;
+  justify-content: center;
+  align-items: center;
+  padding: 0 24px;
 }
 
 /* Buttons */

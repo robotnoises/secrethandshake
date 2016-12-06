@@ -18,23 +18,18 @@
     <script src="bower_components/angular-route/angular-route.min.js"></script>
   </head>
   <body>
-    
-    <!-- Header -->
-    <!--<div>
-      <nav>
-        <div class="side">
-          <p class="navlink"><i class="fa fa-handshake-o" aria-hidden="true"></i></p>
-        </div>
-        <div class="col padding"></div>
-      </nav>
-    </div>-->
-
-    <!-- Decorative ruler -->
-    <!--<div class="ruler"></div>    -->
 
     <!-- Toolbar -->
-    <div class="toolbar">
-      <!-- toolbar shit -->
+    <div class="toolbar container">
+      <div class="side" ng-controller="navController">
+        <p class="navlink"><a href="#/"><i class="fa fa-hand-spock-o" aria-hidden="true"></i></a></p>        
+      </div>
+      <div class="toolbar-content">
+        <div class="searchbar">
+          <i class="fa fa-search" aria-hidden="true"></i>
+          <input type="text" />
+        </div>
+      </div>
     </div>
 
     <div class="container">      
