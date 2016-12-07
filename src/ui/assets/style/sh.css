@@ -39,7 +39,8 @@ table th:first-child {
 }
 
 table thead {
-  background-color: rgba(0, 0, 0, 0.1);
+  color: #555;
+  background-color: rgba(0, 0, 0, 0.15);
 }
 
 table td.name {
@@ -138,7 +139,7 @@ nav .side i {
 
 .side {
   height: 100%;
-  width: 65px;
+  min-width: 65px;
   background-color: #fff;
   color: #333;
 }
@@ -187,12 +188,8 @@ nav .side i {
   user-select: none;
 }
 
-.container-files .row {
-  border-bottom: 1px solid #e5e5e5;
-}
-
-.container-files .row.unselected {
-  border-bottom: 1px solid #444;
+.container-files .row:nth-child(even) {
+  background-color: rgba(0, 0, 0, 0.03);
 }
 
 .container-files .row:not(.unselectable):hover,
