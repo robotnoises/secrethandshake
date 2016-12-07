@@ -14,13 +14,13 @@
       <tbody>
         <tr class="row" ng-class="{ selected: (isSelected && selectedFile._id === f._id), unselected: ((isSelected || isSearching) && selectedFile._id !== f._id) }" ng-repeat="f in files.complete" ng-click="select(f)">
           <td><i class="fa fa-file-text-o"></i></td>
-          <td class="name" ng-bind="f.name"></td>
+          <td class="name truncate" ng-bind="f.name"></td>
           <td class="filestate" ng-class="{ filelocked: f.state === 0 }" >
             <i ng-if="f.state === 0" class="fa fa-lock" aria-hidden="true"></i>
             <i ng-if="f.state === 1" class="fa fa-unlock" aria-hidden="true"></i>
           </td>
-          <td ng-bind="formatFileSize(f.size)"></td>
-          <td ng-bind="moment(f.lastModified).format('MMM DD, YYYY h:mm a')"></td>
+          <td class="filesize truncate" ng-bind="formatFileSize(f.size)"></td>
+          <td class="date truncate" ng-bind="moment(f.lastModified).format('MMM DD, YYYY h:mm a')"></td>
         </tr>
       </tbody>
     </table>

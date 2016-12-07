@@ -10,7 +10,8 @@ function Options(optionOverrides) {
   this.width = optionOverrides.width || 900;
   this.frame = true;
   this.show = false;
-  // this.show_in_taskbar = false;
+  this.min_width = 350;
+  // this.show_in_taskbar = false; // todo: this is a framework bug
 }
 
 /**
