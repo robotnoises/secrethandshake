@@ -34,16 +34,20 @@
 
     <div class="container">      
       <!-- Side nav -->
-      <div class="side" ng-controller="navController">
+      <!--<div class="side" ng-controller="navController">
         <p class="navlink"><a href="#/" ng-class="{active: $route.current.active === 'files'}"><i class="fa fa-files-o" aria-hidden="true"></i></a></p>
         <p class="navlink"><a href="#/messages" ng-class="{active: $route.current.active === 'messages'}"><i class="fa fa-commenting-o" aria-hidden="true"></i></a></p>
         <p class="navlink"><a href="#/contacts" ng-class="{active: $route.current.active === 'contacts'}"><i class="fa fa-address-book-o" aria-hidden="true"></i></a></p>
         <p class="navlink"><a href="#/audit" ng-class="{active: $route.current.active === 'audit'}"><i class="fa fa-history" aria-hidden="true"></i></a></p>
         <p class="navlink"><a href="#/settings" ng-class="{active: $route.current.active === 'settings'}"><i class="fa fa-sliders" aria-hidden="true"></i></a></p>        
-      </div>
+      </div>-->
 
       <!-- Main content body -->
       <div ng-view class="content col"></div>
+    </div>
+
+    <div class="userbar" ng-class="{ hovered: isHovered }" ng-controller="userbarController" ng-mouseenter="toggleHover(true)" ng-mouseleave="toggleHover(false)">
+
     </div>
     
     <script src="bower_components/ng-file-upload/ng-file-upload-all.min.js"></script>
@@ -59,6 +63,7 @@
     <script src="components/settings/settings.controller.js"></script>
     <script src="components/settings/settings.service.js"></script>
     <script src="components/nav/nav.controller.js"></script>
+    <script src="components/userbar/userbar.controller.js"></script>
 
     <script src="globals/message.service.js"></script>
   </body>

@@ -272,8 +272,12 @@ nav .side i {
 }
 
 @keyframes spinny {
-  from { transform:rotate(0deg); }
-  to { transform:rotate(360deg); }
+  from { 
+    transform: rotate(0deg); 
+  }
+  to { 
+    transform: rotate(360deg); 
+  }
 }
 
 .draggable {
@@ -372,6 +376,33 @@ nav .side i {
   justify-content: center;
   align-items: center;
   padding: 0 24px;
+}
+
+.userbar {
+  display: block;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 100px;
+  width: 100%;
+  z-index: 1;
+  background-color: #febd3e;
+  transform: rotate(-45deg);
+  transform-origin: top right;
+}
+
+.userbar.hovered {
+  animation: hinge 200ms 1 linear forwards;
+}
+
+@keyframes hinge {
+  from { 
+    transform: rotate(-45deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
 }
 
 /* Buttons */
