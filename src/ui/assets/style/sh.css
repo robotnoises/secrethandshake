@@ -26,7 +26,8 @@ table {
     the table being wide-enough to not have to scroll-x
   */
   
-  width: calc(100% + 1px); 
+  width: calc(100% + 1px);
+  height: calc(100% + 1px); 
   
   /* **** */
 
@@ -194,12 +195,17 @@ nav .side i {
   user-select: none;
 }
 
-.container-files .row:nth-child(even) {
+.container-files .row.working {
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #ddd;
+}
+
+.container-files .row:nth-child(even) td {
   background-color: rgba(0, 0, 0, 0.03);
 }
 
-.container-files .row:not(.unselectable):hover,
-.container-files .row.selected {
+.container-files .row:not(.unselectable):not(.working):hover td,
+.container-files .row.selected td {
   background-color: #fff;
   color: #333;
 }

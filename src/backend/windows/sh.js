@@ -75,8 +75,8 @@ function moveFile(file) {
         file.error = ERROR.FILE_NAMECONFLICT;
         file.state = FILESTATE.ERROR;
 
-        // // Notify UI
-        // message.send(createdWin.window, new message.Notification('filedone', file));
+        // Notify UI
+        message.send(createdWin.window, new message.Notification('filedone', file));
 
         // If the file is not moved, resolve with null, which will be checked in 
         // the subsequent "encryptFile" function.

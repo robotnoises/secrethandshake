@@ -12,7 +12,22 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="row" ng-class="{ selected: selectedFile._id === f._id }" ng-repeat="f in files.complete" ng-click="select(f)">
+        
+        <!-- Working files -->
+        <tr class="row working" ng-class="{ selected: isSelected && selectedFile._id === f._id }" ng-repeat="f in files.working" ng-click="select(f)">
+          <td><i class="fa fa-file-text-o"></i></td>
+          <td class="name truncate" ng-bind="f.name"></td>
+          <td class="filestate" ng-class="{ filelocked: f.state === 0 }" >
+            <i ng-if="f.state === 0" class="fa fa-lock" aria-hidden="true"></i>
+            <i ng-if="f.state === 1" class="fa fa-unlock" aria-hidden="true"></i>
+            <i ng-if="f.state === 4" class="fa fa-exclamation" aria-hidden="true"></i>
+          </td>
+          <td class="filesize truncate" ng-bind="formatFileSize(f.size)"></td>
+          <td class="date truncate" ng-bind="moment(f.lastModified).format('MMM DD, YYYY h:mm a')"></td>
+        </tr>
+
+        <!-- Resting files -->
+        <tr class="row" ng-class="{ selected: isSelected && selectedFile._id === f._id }" ng-repeat="f in files.complete" ng-click="select(f)">
           <td><i class="fa fa-file-text-o"></i></td>
           <td class="name truncate" ng-bind="f.name"></td>
           <td class="filestate" ng-class="{ filelocked: f.state === 0 }" >
@@ -38,33 +53,3 @@
     <search-details ng-if="isSearching" query="searchQuery"></search-details>
   </div>
 </div>
-
-
-
-
-
-
-  <!--<div class="bar" ng-if="files.loaded && files.working.length">
-    <div class="container-files" ng-if="files.loaded && files.working.length > 0">
-      <table>
-        <thead>
-          <tr>
-            <th>File</th>
-            <th>Message</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="row unselectable" ng-repeat="f in files.working">
-            <td>
-              <span ng-if="f.state === 3"><i class="fa fa-cloud-download"></i></span> 
-              <span ng-if="f.state === 4 && f.error === 0"><i class="fa fa-exclamation"></i></span> 
-              <span ng-bind="f.name"></span>
-            </td>
-            <td>Name conflict</td>
-            <td><button class="btn">Rename</button></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>   -->
