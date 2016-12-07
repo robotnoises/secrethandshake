@@ -416,7 +416,8 @@ nav .side i {
 }
 
 .userbar.hovered {
-  animation: hinge 200ms 1 linear forwards;
+  animation: hinge 200ms 1 ease-in forwards;
+  animation-delay: 200ms;
 }
 
 @keyframes hinge {
