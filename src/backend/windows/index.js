@@ -9,6 +9,8 @@ function Options(optionOverrides) {
   this.height = optionOverrides.height || 700;
   this.width = optionOverrides.width || 900;
   this.frame = true;
+  this.show = false;
+  // this.show_in_taskbar = false;
 }
 
 /**

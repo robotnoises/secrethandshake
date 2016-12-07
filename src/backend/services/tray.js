@@ -56,7 +56,7 @@ function create() {
     _tray = new nw.Tray({
       icon: 'src/assets/images/hand-spock-o.png'
     });
-    _tray.tooltip = 'sh.';
+    _tray.tooltip = 'sh';
     createMenu();
   }
 }

@@ -188,7 +188,7 @@ function createNew(callback) {
     });
 
     win.on('close', () => {
-      logger.info('Hidding main window');
+      logger.info('Hiding main window');
       win.hide();
     });
 
