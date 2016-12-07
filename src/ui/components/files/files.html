@@ -34,8 +34,8 @@
 
   <!-- Slideout -->
   <div class="slideout" ng-class="{ open: isSelected || isSearching }">
-    <file-details file="selectedFile"></file-details>
-    <!--<search-details query="searchQuery"></search-details>-->
+    <file-details ng-if="isSelected && !isSearching" file="selectedFile"></file-details>
+    <search-details ng-if="isSearching" query="searchQuery"></search-details>
   </div>
 </div>
 
