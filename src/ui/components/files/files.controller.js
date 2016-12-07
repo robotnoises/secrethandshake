@@ -6,12 +6,14 @@
 
   .controller('filesController', [
     '$scope', 
+    '$rootScope',
     '$window', 
     '$timeout',
     'filesService', 
     
     function (
       $scope, 
+      $rootScope,
       $window, 
       $timeout,
       filesService
@@ -20,9 +22,14 @@
     $scope.files = filesService.files;
     $scope.moment = $window.moment;
     $scope.formatFileSize = filesService.formatBytes;
+    
     $scope.droppedFiles = {};
     $scope.selectedFile = {};
+
     $scope.isSelected = false;
+    $scope.isSearching = false;
+
+    //$scope.searchQuery = $rootScope.searchQuery || '';
 
     // Private methods
 
@@ -60,6 +67,16 @@
       filesService.consumeFiles($files);
       $scope.droppedFiles = [];
     };
+
+    // Scope watchers
+
+    $rootScope.$watch('searchQuery', (sq) => {
+      if (sq.q) {
+        $scope.isSearching = true;
+      } else {
+        $scope.isSearching = false;
+      }
+    }, true);
   }]);
 
 })(angular);

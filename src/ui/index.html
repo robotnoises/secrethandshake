@@ -25,9 +25,9 @@
         <p class="navlink"><a href="#/"><i class="fa fa-hand-spock-o" aria-hidden="true"></i></a></p>        
       </div>
       <div class="toolbar-content">
-        <div class="searchbar">
+        <div class="searchbar" ng-controller="searchController">
           <i class="fa fa-search" aria-hidden="true"></i>
-          <input type="text" />
+          <input type="text" ng-model="searchQuery.q" />
         </div>
       </div>
     </div>
@@ -64,6 +64,7 @@
     <script src="components/settings/settings.service.js"></script>
     <script src="components/nav/nav.controller.js"></script>
     <script src="components/userbar/userbar.controller.js"></script>
+    <script src="components/search/search.controller.js"></script>
 
     <script src="globals/message.service.js"></script>
   </body>
