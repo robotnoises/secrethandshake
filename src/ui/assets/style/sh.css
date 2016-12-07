@@ -99,6 +99,11 @@ div {
   transition: background 200ms;
 }
 
+.container.column {
+  flex-direction: column;
+  height: auto;
+}
+
 .container.darken {
   background-color: #555;
 }
@@ -404,6 +409,29 @@ nav .side i {
   to {
     transform: rotate(0deg);
   }
+}
+
+.userbar-avatar {
+  padding: 12px;
+  align-self: flex-end; 
+  width: 100px;
+  height: 100%;
+}
+
+.userbar-avatar .avatar {
+  height: 30px;
+  width: 30px;
+  line-height: 30px;
+  text-align: center;
+  border-radius: 50%;
+  background-color: rgba(255,255,255,0.4);
+  overflow: hidden;
+}
+
+.userbar-avatar .avatar i {
+  line-height: 40px;
+  font-size: 40px;
+  color: #fff;
 }
 
 /* Buttons */

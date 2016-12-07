@@ -47,7 +47,13 @@
     </div>
 
     <div class="userbar" ng-class="{ hovered: isHovered }" ng-controller="userbarController" ng-mouseenter="toggleHover(true)" ng-mouseleave="toggleHover(false)">
-
+      <div class="container column">
+        <div class="userbar-avatar col">
+          <div class="avatar">
+            <i class="fa fa-user" aria-hidden="true"></i>
+          </div>
+        </div>
+      </div>
     </div>
     
     <script src="bower_components/ng-file-upload/ng-file-upload-all.min.js"></script>
