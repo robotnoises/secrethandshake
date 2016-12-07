@@ -20,8 +20,16 @@ a {
 /* Tables */
 
 table {
-  margin: 0;
-  width: calc(100%);
+  /* 
+    Fixes a weird bug in Chromium 55.... still trying to figure it out,
+    but without this, the page won't repaint when the User selects a table row +
+    the table being wide-enough to not have to scroll-x
+  */
+  
+  width: calc(100% + 1px); 
+  
+  /* **** */
+
   border: none;
   font-size: 12px;
 }
@@ -58,10 +66,6 @@ table td.filestate i {
 
 table td.filestate.filelocked i {
   color: #333;
-}
-
-table tr:not(.unselected) i.fa {
-  text-shadow: 2px 2px 0px #fff;
 }
 
 /* Forms */
@@ -175,6 +179,7 @@ nav .side i {
 }
 
 .container-files {
+  width: 100%;
   color: #333;
   overflow-y: auto;
   overflow-x: auto;

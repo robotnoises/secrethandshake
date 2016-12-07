@@ -47,8 +47,10 @@
 
     $scope.select = (file) => {
       if ($scope.selectedFile._id !== file._id) {
-        $scope.selectedFile = file;
-        $scope.isSelected = true;
+        $timeout(() => {
+          $scope.selectedFile = file;
+          $scope.isSelected = true;
+        });
       } else {
         $scope.deselect();
       }
