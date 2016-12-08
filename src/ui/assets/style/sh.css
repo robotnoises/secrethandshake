@@ -196,8 +196,8 @@ nav .side i {
 }
 
 .container-files .row.working {
-  background-color: rgba(0, 0, 0, 0.6);
-  color: #ddd;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .container-files .row:nth-child(even) td {
@@ -383,11 +383,16 @@ nav .side i {
   padding: 0 24px;
 }
 
-.actionbar {
+.actionbar,
+.locationbar {
   display: inline-flex;
   padding: 0 12px;
   height: 32px;
-  min-width: 100px;
+  line-height: 32px;
+}
+
+.actionbar {
+  min-width: 108px;
 }
 
 .actionbar ul {
@@ -408,6 +413,15 @@ nav .side i {
 
 .actionbar ul li i {
   margin: 0 auto;
+}
+
+.locationbar {
+  background-color: #eee;
+  color: #999;
+  border-radius: 16px;
+  flex-grow: 1;
+  font-size: 11px;
+  font-weight: 600;
 }
 
 .searchbar {
@@ -500,10 +514,9 @@ button.btn {
   transition: background 500ms, color 200ms;
   border: 3px solid transparent;
   height: 32px;
-  border-radius: 50%;
+  border-radius: 16px;
   overflow: hidden;
-  margin-right: 10px;
-  margin-left: 0;
+  margin: 0 5px;
   padding-left: 0;
   background-color: #eee;
   color: #999;

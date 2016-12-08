@@ -25,10 +25,12 @@
         <p class="navlink"><a href="#/"><i class="fa fa-hand-spock-o" aria-hidden="true"></i></a></p>        
       </div>
       <div class="toolbar-content">
-        <!--<div class="locationbar"></div>-->
-        <div class="actionbar">
+        <div class="locationbar"> <!-- ng-controller="locationController" -->
+          sh:home <!-- {{ breadcrumb }} -->
+        </div>
+        <div class="actionbar" ng-controller="filesController">
           <ul>
-            <li class="flat">
+            <li class="flat" ngf-select="consumeFiles($files)" ng-model="droppedFiles" ngf-multiple="true">
               <i class="fa fa-file" aria-hidden="true"></i>  
             </li>
             <li class="flat">
