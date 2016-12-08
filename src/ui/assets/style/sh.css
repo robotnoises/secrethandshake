@@ -38,8 +38,8 @@ table {
 table td,
 table th {
   border-right: none;
-  padding: 0 24px;
-  line-height: 48px;
+  padding: 4px 24px;
+  line-height: 46px;
 }
 
 table td:first-child,
@@ -250,7 +250,6 @@ nav .side i {
   top: 65px;
   right: 0;
   bottom: 0;
-  left: 65px;
   color: #fff;
   font-size: 1em;
   font-weight: 600;
@@ -369,6 +368,47 @@ nav .side i {
   color: rgba(0,0,0,0.7);
 }
 
+.toolbar-content {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: auto;
+  flex-wrap: nowrap;
+  align-self: stretch;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0 24px;
+}
+
+.actionbar {
+  display: inline-flex;
+  padding: 0 12px;
+  height: 32px;
+  min-width: 100px;
+}
+
+.actionbar ul {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+.actionbar ul li {
+  display: inherit;
+  align-items: inherit;
+  align-content: inherit;
+  width: 32px;
+}
+
+.actionbar ul li i {
+  margin: 0 auto;
+}
+
 .searchbar {
   display: inline-flex;
   background-color: #febd3e;
@@ -378,7 +418,6 @@ nav .side i {
   max-width: 300px;
   width: 100%;
   height: 32px;
-  align-self: flex-end;
 }
 
 .searchbar i {
@@ -391,20 +430,6 @@ nav .side i {
   line-height: 32px;
   height: 32px;
   font-weight: 600;
-}
-
-.toolbar-content {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  flex-grow: 1;
-  flex-shrink: 1;
-  flex-basis: auto;
-  flex-wrap: nowrap;
-  align-self: stretch;
-  justify-content: center;
-  align-items: center;
-  padding: 0 24px;
 }
 
 .userbar {
@@ -468,6 +493,29 @@ button.btn {
   line-height: 32px;
   padding: 0 2em;
 }
+
+.flat,
+.flat:active {
+  transition: background 500ms, color 200ms;
+  border: 3px solid transparent;
+  height: 32px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 10px;
+  margin-left: 0;
+  padding-left: 0;
+  background-color: #eee;
+  color: #999;
+  border: 2px solid transparent;
+}
+
+.flat:hover,
+.flat:focus {
+  border: 2px solid #eee;
+  background-color: #fff;
+  color: #febd3e;
+}
+
 
 /* Colors and Gradients */
 
