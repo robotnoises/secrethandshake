@@ -13,7 +13,8 @@
     filesService.files = {
       loaded: false,
       working: [],
-      complete: []
+      complete: [],
+      selected: {}
     };
 
     filesService.consumeFiles = (files) => {
@@ -78,6 +79,12 @@
           filesService.files[list][indexToBeReplaced] = value;
         } else {
           filesService.files[list].push(value);
+        }
+      });
+
+      $timeout(() => {
+        if (filesService.files.selected._id === value._id) {
+          filesService.files.selected = value;
         }
       });
     });

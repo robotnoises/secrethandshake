@@ -14,7 +14,7 @@
       <tbody>
         
         <!-- Working files -->
-        <tr class="row working" ng-class="{ selected: isSelected && selectedFile._id === f._id }" ng-repeat="f in files.working" ng-click="select(f)">
+        <tr class="row working" ng-class="{ selected: isSelected && files.selected._id === f._id }" ng-repeat="f in files.working" ng-click="select(f)">
           <td><i class="fa fa-file-text-o"></i></td>
           <td class="name truncate" ng-bind="f.name"></td>
           <td class="filestate" ng-class="{ filelocked: f.state === 0 }" >
@@ -27,7 +27,7 @@
         </tr>
 
         <!-- Resting files -->
-        <tr class="row" ng-class="{ selected: isSelected && selectedFile._id === f._id }" ng-repeat="f in files.complete" ng-click="select(f)">
+        <tr class="row" ng-class="{ selected: isSelected && files.selected._id === f._id }" ng-repeat="f in files.complete" ng-click="select(f)">
           <td><i class="fa fa-file-text-o"></i></td>
           <td class="name truncate" ng-bind="f.name"></td>
           <td class="filestate" ng-class="{ filelocked: f.state === 0 }" >
@@ -49,7 +49,7 @@
 
   <!-- Slideout -->
   <div class="slideout" ng-class="{ open: isSelected || isSearching }">
-    <file-details ng-if="isSelected && !isSearching" file="selectedFile"></file-details>
+    <file-details ng-if="isSelected && !isSearching" file="files.selected"></file-details>
     <search-details ng-if="isSearching" query="searchQuery"></search-details>
   </div>
 </div>

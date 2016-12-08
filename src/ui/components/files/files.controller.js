@@ -24,7 +24,6 @@
     $scope.formatFileSize = filesService.formatBytes;
     
     $scope.droppedFiles = {};
-    $scope.selectedFile = {};
 
     $scope.isSelected = false;
     $scope.isSearching = false;
@@ -46,9 +45,9 @@
     // Scope methods
 
     $scope.select = (file) => {
-      if ($scope.selectedFile._id !== file._id) {
+      if ($scope.files.selected._id !== file._id) {
         $timeout(() => {
-          $scope.selectedFile = file;
+          $scope.files.selected = file;
           $scope.isSelected = true;
         });
       } else {
@@ -61,7 +60,7 @@
         $scope.isSelected = false;
       });
       $timeout(() => {
-        $scope.selectedFile = {};
+        $scope.files.selected = {};
       }, 200);
     };
 
