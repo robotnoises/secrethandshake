@@ -250,6 +250,7 @@ nav .side i {
   top: 65px;
   right: 0;
   bottom: 0;
+  left: 0;
   color: #fff;
   font-size: 1em;
   font-weight: 600;
@@ -515,7 +516,6 @@ button.btn {
   background-color: #fff;
   color: #febd3e;
 }
-
 
 /* Colors and Gradients */
 
