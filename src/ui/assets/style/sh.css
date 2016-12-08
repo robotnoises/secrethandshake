@@ -531,6 +531,45 @@ button.btn {
   color: #febd3e;
 }
 
+/* Dialogs */
+
+.confirm-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  opacity: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  transition: opacity 200ms, background 200ms;
+  pointer-events: none;
+}
+
+.confirm-container.show {
+  opacity: 1;
+  pointer-events: initial;
+}
+
+.confirm-container .confirm {
+  position: relative;
+  display: block;
+  margin: -500px auto 0;
+  width: 100%;
+  max-width: 500px;
+  min-height: 48px;
+  background: #fff;
+  color: #555;
+  font-weight: 600;
+  transition: margin 500ms ease-in;
+  border-bottom: 5px solid #febd3e;
+}
+
+.confirm-container.show .confirm {
+  margin-top: 0;
+  transition: margin 200ms linear;
+}
+
 /* Colors and Gradients */
 
 .co-darkest {

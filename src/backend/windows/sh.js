@@ -141,6 +141,18 @@ function setPassphrase(input) {
     });
 }
 
+function checkPassphrase(input) {
+  logger.info('Checking passphrase');
+  return db.read(db.databases.passphrase)
+    .then((hashed) => {
+      if (hashed && hashed[0]) {
+        return passphrase.check(input, hashed[0].value);
+      } else {
+        return Promise.reject('Passphrase not found');
+      }
+    });
+}
+
 /**
  * Bridge methods
  */
@@ -197,7 +209,7 @@ function createNew(callback) {
     bridge.setItem(win.window, 'reencryptFile', reencryptFile);
     bridge.setItem(win.window, 'openFile', openFile);
     bridge.setItem(win.window, 'setPassphrase', setPassphrase);
-    bridge.setItem(win.window, 'checkPassphrase', passphrase.check);
+    bridge.setItem(win.window, 'checkPassphrase', checkPassphrase);
   });
 }
 

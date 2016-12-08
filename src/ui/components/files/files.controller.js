@@ -27,8 +27,12 @@
 
     $scope.isSelected = false;
     $scope.isSearching = false;
-
-    //$scope.searchQuery = $rootScope.searchQuery || '';
+    
+    $scope.confirmModel = {
+      show: false,
+      text: 'Enter your passphrase',
+      validate: filesService.checkPassphrase
+    }
 
     // Private methods
 
@@ -37,7 +41,18 @@
     function handleEscape($event) {
       if ($event.which === ESCAPE_KEY) {
         $scope.deselect();
+        $scope.isSearching = false;
+        $scope.confirmModel.show = false;
       }
+    }
+
+    function confirm() {
+      return new Promise((resolve) => {
+        $timeout(() => {
+          $scope.confirmModel.show = true;
+          $scope.confirmModel.done = resolve;
+        });
+      });
     }
 
     $window.document.addEventListener('keydown', handleEscape);
@@ -65,8 +80,16 @@
     };
 
     $scope.consumeFiles = ($files) => {
-      filesService.consumeFiles($files);
-      $scope.droppedFiles = [];
+      
+      confirm()
+        .then(() => {
+          filesService.consumeFiles($files);
+          $scope.droppedFiles = [];
+        })
+        .catch((error) => {
+          // todo toast error
+          console.error(error);
+        });
     };
 
     // Scope watchers

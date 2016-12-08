@@ -4,7 +4,7 @@
 
   angular.module('sh')
 
-  .directive('searchDetails', function (filesService) {
+  .directive('searchDetails', function () {
     return {
       restrict: 'E',
       scope: {

@@ -41,6 +41,14 @@
       }
     };
 
+    filesService.checkPassphrase = (passphrase) => {
+      if ($window.shbridge && $window.shbridge.checkPassphrase) {
+        return $window.shbridge.checkPassphrase(passphrase);
+      } else {
+        console.error('Bridge method "reencryptFile" not found');
+      }
+    };
+
     filesService.formatBytes = (bytes) => {
       // Poached from: http://stackoverflow.com/questions/15900485/correct-way-to-convert-size-in-bytes-to-kb-mb-gb-in-javascript#answer-18650828
       if (bytes == 0) return '0 Byte';

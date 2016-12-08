@@ -26,11 +26,11 @@ function hash(input) {
 
 function check(input, hashed) {
   return new Promise((resolve, reject) => {
-    bcrypt.compare(input, hashed, (err, hashed) => {
+    bcrypt.compare(input, hashed, (err, same) => {
       if (err) {
         reject(err);
       } else {
-        resolve(hashed);
+        resolve(same);
       }
     });
   });

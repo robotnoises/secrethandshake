@@ -4,12 +4,12 @@
 
   'use strict';
   
-  // Nodes
+  // Files
   angular.module('sh.files', [
     'ngFileUpload'
   ]);
   
-  // Search
+  // Settings
   angular.module('sh.settings', []);
   
 })(angular);
