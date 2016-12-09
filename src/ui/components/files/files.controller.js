@@ -22,15 +22,13 @@
     $scope.files = filesService.files;
     $scope.moment = $window.moment;
     $scope.formatFileSize = filesService.formatBytes;
-    
-    $scope.droppedFiles = {};
 
     $scope.isSelected = false;
     $scope.isSearching = false;
     
     $scope.confirmModel = {
-      show: false,
       text: 'Enter your passphrase',
+      eventName: 'toggleFileConfirm',
       validate: filesService.checkPassphrase
     }
 
@@ -42,15 +40,23 @@
       if ($event.which === ESCAPE_KEY) {
         $scope.deselect();
         $scope.isSearching = false;
-        $scope.confirmModel.show = false;
+        $rootScope.$emit($scope.confirmModel.eventName, false);
+      }
+    }
+
+    function handleConfirm(files, isConfirmed) {
+      if (isConfirmed) {
+        filesService.consumeFiles(files);
+      } else {
+        // todo: reset?
       }
     }
 
     function confirm() {
-      return new Promise((resolve) => {
-        $timeout(() => {
-          $scope.confirmModel.show = true;
-          $scope.confirmModel.done = resolve;
+      return new Promise(resolve => {
+        $rootScope.$emit($scope.confirmModel.eventName, {
+          show: true,
+          callback: resolve
         });
       });
     }
@@ -80,16 +86,11 @@
     };
 
     $scope.consumeFiles = ($files) => {
+      if (!$files.length) return;
       
       confirm()
-        .then(() => {
-          filesService.consumeFiles($files);
-          $scope.droppedFiles = [];
-        })
-        .catch((error) => {
-          // todo toast error
-          console.error(error);
-        });
+        .then(handleConfirm.bind(undefined, $files))
+        .catch(error => console.error(error));
     };
 
     // Scope watchers
@@ -101,6 +102,7 @@
         $scope.isSearching = false;
       }
     }, true);
+
   }]);
 
 })(angular);

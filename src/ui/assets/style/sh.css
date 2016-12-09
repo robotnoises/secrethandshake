@@ -42,6 +42,10 @@ table th {
   line-height: 46px;
 }
 
+table tr:not(:last-child) {
+  height: 52px;
+}
+
 table td:first-child,
 table th:first-child {
   padding: 0;
@@ -195,6 +199,11 @@ nav .side i {
   user-select: none;
 }
 
+.container-files .row i.fa {
+  padding-top: 2px;
+}
+
+
 .container-files .row.working {
   background-color: rgba(0, 0, 0, 0.5);
   color: rgba(255, 255, 255, 0.7);
@@ -204,7 +213,7 @@ nav .side i {
   background-color: rgba(0, 0, 0, 0.03);
 }
 
-.container-files .row:not(.unselectable):not(.working):hover td,
+.container-files .row:not(.unselectable):not(.working):not(:last-child):hover td,
 .container-files .row.selected td {
   background-color: #fff;
   color: #333;

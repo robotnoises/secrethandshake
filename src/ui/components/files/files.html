@@ -37,14 +37,19 @@
           <td class="filesize truncate" ng-bind="formatFileSize(f.size)"></td>
           <td class="date truncate" ng-bind="moment(f.lastModified).format('MMM DD, YYYY h:mm a')"></td>
         </tr>
+
+        <tr class="row">
+          <td colspan="5"></td>
+        </tr>
       </tbody>
     </table>
-
-    <confirm-directive model="confirmModel"></confirm-directive>
   </div>
 
+  <!-- Confirm passphrase -->
+  <confirm-directive model="confirmModel"></confirm-directive>
+
   <!-- If no files (drag or click) -->
-  <div class="dropzone" ng-class="{ disabled : files.loaded && files.complete.length > 0 }" ngf-drop="consumeFiles($files)" ngf-select="consumeFiles($files)" ng-model="droppedFiles" ngf-multiple="true">
+  <div class="dropzone" ng-class="{ disabled : files.loaded && files.complete.length > 0 }" ngf-drop="consumeFiles($files)" ngf-select="consumeFiles($files)" ngf-multiple="true">
     <div class="spinnything"></div>
     <p>Click here or drag-in file(s)</p>
   </div>

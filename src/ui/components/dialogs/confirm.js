@@ -4,7 +4,7 @@
 
   angular.module('sh')
 
-  .directive('confirmDirective', ['$timeout', '$window', function ($timeout, $window) {
+  .directive('confirmDirective', ['$timeout', '$window', '$rootScope', function ($timeout, $window, $rootScope) {
     return {
       restrict: 'E',
       replace: true,
@@ -17,14 +17,22 @@
 
         // Private 
 
-        function close() {
+        function show(data) {
+          angular.element(document.querySelectorAll('#passphrase'))[0].focus();
+          scope.show = (typeof force === 'boolean') ? data.show : !scope.show;
+          scope.callback = data.callback;
+        }
+
+        function hide() {
           $timeout(() => {
-            scope.model.show = false;
-            scope.form = {};
+            scope.show = false;
+            scope.form.passphrase = '';
           });
         }
 
         // Scope
+
+        scope.show = false;
 
         scope.form = {
           passphrase: ''
@@ -36,28 +44,23 @@
         };
 
         scope.cancel = () => {
-          scope.model.done(false);
-          close();
+          scope.callback(false);
+          hide();
         };
 
-        scope.$watch('model.show', (show) => {
-          if (show) {
-            $timeout(() => {
-              let input = angular.element(document.querySelectorAll('#passphrase'))[0];
-              input.focus();
-            });
-          } else {
-            scope.form.passphrase = '';
-          }
-        });
+        if (scope.model.eventName) {
+          $rootScope.$on(scope.model.eventName, ($event, data) => $timeout(show.bind(undefined, data)));
+        }
+        
+        // Events
 
         element[0].addEventListener('keydown', ($event) => {
           if ($event.which === ENTER_KEY && scope.form.passphrase) {
             scope.model.validate(scope.form.passphrase)
               .then(isValid => {
                 if (isValid) {
-                  scope.model.done(true);
-                  close();
+                  scope.callback(true);
+                  hide();
                 } else {
                   // todo: wiggle
                 }
@@ -70,9 +73,9 @@
         });
       }, 
       template: 
-      '<div class="confirm-container" ng-class="{ show: model.show }" ng-click="cancel()">' +
+      '<div class="confirm-container" ng-class="{ show: show }" ng-click="cancel()">' +
       '  <div class="confirm" ng-click="nope($event)">' +
-      '    <input id="passphrase" type="password" ng-model="form.passphrase" placeholder="{{model.text}}" onfocus="this.removeAttribute(\'readonly\');" readonly />' + 
+      '    <input id="passphrase" type="password" ng-model="form.passphrase" placeholder="{{model.text}}" onfocus="this.removeAttribute(\'readonly\');" readonly autocomplete="false" />' + 
       '  </div>' + 
       '</div>' 
     }
