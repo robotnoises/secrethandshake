@@ -579,7 +579,7 @@ button.btn {
 }
 
 .confirm-container .confirm.invalid {
-  animation: wiggle 500ms 1 ease-out;
+  animation: wiggle 700ms 1 ease-out;
   border-color: #e74c3c;
 }
 
