@@ -203,7 +203,6 @@ nav .side i {
   padding-top: 2px;
 }
 
-
 .container-files .row.working {
   background-color: rgba(0, 0, 0, 0.5);
   color: rgba(255, 255, 255, 0.7);
@@ -577,6 +576,29 @@ button.btn {
 .confirm-container.show .confirm {
   margin-top: 0;
   transition: margin 200ms linear;
+}
+
+.confirm-container .confirm.invalid {
+  animation: wiggle 500ms 1 ease-out;
+  border-color: #e74c3c;
+}
+
+@keyframes wiggle {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  
+  20%, 80% {
+    transform: translate3d(3px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-6px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(5px, 0, 0);
+  }
 }
 
 /* Colors and Gradients */
