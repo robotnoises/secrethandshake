@@ -9,6 +9,7 @@ const passphrase = require('./../services/passphrase');
 const message = require('./../services/message');
 const filesystem = require('./../services/filesystem');
 const encryption = require('./../services/encryption');
+const _ = require('lodash');
 
 const ERROR = require('./../services/error');
 const FILESTATE = require('./../services/filestate');
@@ -29,6 +30,7 @@ function ShFile(file) {
   this.lastModifiedDate = file.lastModifiedDate;
   this.size = file.size;
   this.type = file.type;
+  this.dropId = file.dropId || dropId(file.path);
   this.error = (typeof file.error !== 'undefined') ? file.error : null;
   this.state = (typeof file.state !== 'undefined') ? file.state : FILESTATE.PROCESSING;
 }
@@ -41,6 +43,10 @@ function ShPassphrase(hash) {
 /**
  * Private Window functions
  */
+
+function dropId(originalFilePath) {
+  return Date.now() + originalFilePath.split(/[\\\/\s]/gi).join('.');
+}
 
 function openFile(file) {
   let f = new ShFile(file);
@@ -76,13 +82,17 @@ function moveFile(file) {
         file.state = FILESTATE.ERROR;
 
         // Notify UI
-        message.send(createdWin.window, new message.Notification('filedone', file));
+        message.send(createdWin.window, new message.Notification('fileupdated', file));
 
         // If the file is not moved, resolve with null, which will be checked in 
         // the subsequent "encryptFile" function.
         return Promise.resolve(null);
       } else {
         logger.info('Moving file:', file.name);
+        
+        // Notify UI
+        message.send(createdWin.window, new message.Notification('fileupdated', file));
+
         return filesystem.moveToFiles(file);
       }
     });
@@ -90,14 +100,14 @@ function moveFile(file) {
 
 function encryptNewFile(file, passphrase) {
   if (passphrase) {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       encryption.encrypt(file.shPath, passphrase)
         .then(() => {
           file.state = FILESTATE.ENCRYPTED; 
           return db.save(db.databases.files, file);
         })
         .then(savedFile => {
-          message.send(createdWin.window, new message.Notification('filedone', savedFile));
+          message.send(createdWin.window, new message.Notification('fileupdated', savedFile));
           resolve(savedFile);
         })
         .catch(error => {
@@ -216,7 +226,7 @@ function createNew(callback) {
 function loadFiles() {
   db.read(db.databases.files)
     .then((files) => {
-      message.send(createdWin.window, new message.Notification('filesloaded', files));
+      message.send(createdWin.window, new message.Notification('filesloaded', _.keyBy(files, 'dropId')));
     })
     .catch(error => {
       logger.error(error);

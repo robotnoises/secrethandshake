@@ -18,9 +18,11 @@
         // Private 
 
         function show(data) {
-          angular.element(document.querySelectorAll('#passphrase'))[0].focus();
-          scope.show = (typeof force === 'boolean') ? data.show : !scope.show;
-          scope.callback = data.callback;
+          $timeout(() => {
+            angular.element(document.querySelectorAll('#passphrase'))[0].focus();
+            scope.show = (typeof force === 'boolean') ? data.show : !scope.show;
+            scope.callback = data.callback;
+          });
         }
 
         function hide() {
@@ -46,7 +48,7 @@
         };
 
         scope.cancel = () => {
-          scope.callback(false);
+          if (scope.callback) scope.callback(false);
           hide();
         };
 

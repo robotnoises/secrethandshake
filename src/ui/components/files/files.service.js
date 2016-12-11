@@ -10,10 +10,13 @@
 
     let filesService= {};
 
+    // Public
+
     filesService.files = {
       loaded: false,
-      working: [],
-      complete: [],
+      empty: true,
+      working: {},
+      complete: {},
       selected: {}
     };
 
@@ -60,40 +63,22 @@
 
     // Notification listeners
 
-    messageService.on('filesloaded', (value) => {
+    messageService.on('filesloaded', (files) => {
       $timeout(() => {
+        filesService.files.complete = files;
         filesService.files.loaded = true;
-        filesService.files.complete = value;
+        filesService.files.empty = Object.keys(files).length === 0;
       });
     });
 
-    messageService.on('filedone', (file) => {
-      $window.console.log('file done:', file);
-      $timeout(() => {
-        let list = (file.state === 4) ? 'working' : 'complete';
-        filesService.files[list].push(file);
-      });
-    });
-
-    messageService.on('fileupdated', (value) => {
-      $window.console.log('file updated:', value);
-
-      // note: this is O(n), which is potentially not a big deal but needs to be looked into
-      let list = (value.state === 4) ? 'working' : 'complete';
-      let indexToBeReplaced = filesService.files[list].findIndex(file => file._id === value._id);
+    messageService.on('fileupdated', (file) => {
+      $window.console.log('file updated:', file);
+      
+      let destination = (file.state > 2) ? 'working' : 'complete';
 
       $timeout(() => {
-        if (indexToBeReplaced > -1) {
-          filesService.files[list][indexToBeReplaced] = value;
-        } else {
-          filesService.files[list].push(value);
-        }
-      });
-
-      $timeout(() => {
-        if (filesService.files.selected._id === value._id) {
-          filesService.files.selected = value;
-        }
+        filesService.files[destination][file.dropId] = file;
+        // todo: cleanup working
       });
     });
 

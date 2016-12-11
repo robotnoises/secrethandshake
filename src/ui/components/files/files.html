@@ -1,6 +1,6 @@
 <div id="files" class="container draggable" ng-class="{ darken: (isSelected || isSearching) }" ngf-drag-over-class="'dragging'" ngf-drop="consumeFiles($files)" ng-model="droppedFiles" ngf-multiple="true">
   <!-- Main files container -->
-  <div class="container-files" ng-if="files.loaded && files.complete.length > 0">
+  <div class="container-files" ng-if="files.loaded && !files.empty">
     <table>
       <thead>
         <tr>
@@ -14,28 +14,38 @@
       <tbody>
         
         <!-- Working files -->
-        <tr class="row working" ng-class="{ selected: isSelected && files.selected._id === f._id }" ng-repeat="f in files.working" ng-click="select(f)">
-          <td><i class="fa fa-file-text-o"></i></td>
-          <td class="name truncate" ng-bind="f.name"></td>
-          <td class="filestate" ng-class="{ filelocked: f.state === 0 }" >
-            <i ng-if="f.state === 0" class="fa fa-lock" aria-hidden="true"></i>
-            <i ng-if="f.state === 1" class="fa fa-unlock" aria-hidden="true"></i>
-            <i ng-if="f.state === 4" class="fa fa-exclamation" aria-hidden="true"></i>
+        <tr class="row working" ng-class="{ selected: isSelected && files.selected._id === value._id }" ng-repeat="(key, value) in files.working" ng-click="select(value)">
+          <td class="icon"><i class="fa fa-file-text-o"></i></td>
+          <td class="name truncate" ng-bind="value.name"></td>
+          <td class="filestate" ng-class="{ filelocked: value.state === 0 }" >
+            <i ng-if="value.state === 0" class="fa fa-lock" aria-hidden="true"></i>
+            <i ng-if="value.state === 1" class="fa fa-unlock" aria-hidden="true"></i>
+            <div class="loading" ng-if="value.state === 2">
+              <div class="bounce1"></div>
+              <div class="bounce2"></div>
+              <div class="bounce3"></div>
+            </div>
+            <i ng-if="value.state === 4" class="fa fa-exclamation" aria-hidden="true"></i>
           </td>
-          <td class="filesize truncate" ng-bind="formatFileSize(f.size)"></td>
-          <td class="date truncate" ng-bind="moment(f.lastModified).format('MMM DD, YYYY h:mm a')"></td>
+          <td class="filesize truncate" ng-bind="formatFileSize(value.size)"></td>
+          <td class="date truncate" ng-bind="moment(value.lastModified).format('MMM DD, YYYY h:mm a')"></td>
         </tr>
 
         <!-- Resting files -->
-        <tr class="row" ng-class="{ selected: isSelected && files.selected._id === f._id }" ng-repeat="f in files.complete" ng-click="select(f)">
-          <td><i class="fa fa-file-text-o"></i></td>
-          <td class="name truncate" ng-bind="f.name"></td>
-          <td class="filestate" ng-class="{ filelocked: f.state === 0 }" >
-            <i ng-if="f.state === 0" class="fa fa-lock" aria-hidden="true"></i>
-            <i ng-if="f.state === 1" class="fa fa-unlock" aria-hidden="true"></i>
+        <tr class="row" ng-class="{ selected: isSelected && files.selected._id === value._id }" ng-repeat="(key, value) in files.complete" ng-click="select(value)">
+          <td class="icon"><i class="fa fa-file-text-o"></i></td>
+          <td class="name truncate" ng-bind="value.name"></td>
+          <td class="filestate" ng-class="{ filelocked: value.state === 0 }" >
+            <i ng-if="value.state === 0" class="fa fa-lock" aria-hidden="true"></i>
+            <i ng-if="value.state === 1" class="fa fa-unlock" aria-hidden="true"></i>
+            <div class="loading" ng-if="value.state === 2">
+              <div class="bounce1"></div>
+              <div class="bounce2"></div>
+              <div class="bounce3"></div>
+            </div>
           </td>
-          <td class="filesize truncate" ng-bind="formatFileSize(f.size)"></td>
-          <td class="date truncate" ng-bind="moment(f.lastModified).format('MMM DD, YYYY h:mm a')"></td>
+          <td class="filesize truncate" ng-bind="formatFileSize(value.size)"></td>
+          <td class="date truncate" ng-bind="moment(value.lastModified).format('MMM DD, YYYY h:mm a')"></td>
         </tr>
 
         <tr class="row">
@@ -49,7 +59,7 @@
   <confirm-directive model="confirmModel"></confirm-directive>
 
   <!-- If no files (drag or click) -->
-  <div class="dropzone" ng-class="{ disabled : files.loaded && files.complete.length > 0 }" ngf-drop="consumeFiles($files)" ngf-select="consumeFiles($files)" ngf-multiple="true">
+  <div class="dropzone" ng-class="{ disabled: (files.loaded && !files.empty) }" ngf-drop="consumeFiles($files)" ngf-select="consumeFiles($files)" ngf-multiple="true">
     <div class="spinnything"></div>
     <p>Click here or drag-in file(s)</p>
   </div>
