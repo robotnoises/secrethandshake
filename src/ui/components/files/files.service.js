@@ -78,7 +78,7 @@
 
       $timeout(() => {
         filesService.files[destination][file.dropId] = file;
-        // todo: cleanup working
+        filesService.files.selected = (file._id === filesService.files.selected._id) ? file : filesService.files.selected;
       });
     });
 
