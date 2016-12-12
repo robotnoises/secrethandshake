@@ -92,7 +92,7 @@
 
       $timeout(() => {
         filesService.files[destination][file.dropId] = file;
-        filesService.files.selected = (file._id === filesService.files.selected._id) ? file : filesService.files.selected;
+        filesService.files.selected = (filesService.files.selected._id && file._id === filesService.files.selected._id) ? file : filesService.files.selected;
       });
     });
 
