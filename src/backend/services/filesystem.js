@@ -81,11 +81,24 @@ function openFile(filePath) {
   });
 }
 
+function removeFile(filePath) {
+  return new Promise((resolve, reject) => {
+    try {
+      fs.unlink(filePath, () => { // If it's unencrypted...
+        fs.unlink(filePath + '.enc', resolve);
+      });
+    } catch (ex) {
+      reject(ex);
+    }
+  });
+}
+
 module.exports = {
   getBaseDirectory: getBaseDirectory,
   getLogsDirectory: getLogsDirectory,
   getDatabaseDirectory: getDatabaseDirectory,
   getFilesDirectory: getFilesDirectory,
   moveToFiles: moveToFiles,
-  openFile: openFile
+  openFile: openFile,
+  removeFile: removeFile
 };

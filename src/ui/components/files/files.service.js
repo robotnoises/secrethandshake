@@ -22,7 +22,7 @@
 
     filesService.consumeFiles = (files) => {
       if ($window.shbridge && $window.shbridge.consumeFiles) {
-        $window.shbridge.consumeFiles(files);
+        return $window.shbridge.consumeFiles(files);
       } else {
         console.error('Bridge method "consumeFiles" not found');
       }
@@ -30,15 +30,29 @@
 
     filesService.openFile = (file) => {
       if ($window.shbridge && $window.shbridge.openFile) {
-        $window.shbridge.openFile(file);
+        return $window.shbridge.openFile(file);
       } else {
         console.error('Bridge method "openFile" not found');
       }
     };
 
+    filesService.deleteFile = (file) => {
+      if ($window.shbridge && $window.shbridge.deleteFile) {
+        return $window.shbridge.deleteFile(file);
+      } else {
+        console.error('Bridge method "openFile" not found');
+      }
+    };
+
+    filesService.deselect = () => {
+      $timeout(() => {
+        filesService.files.selected = {};
+      });
+    };
+
     filesService.encryptFile = (file, passphrase) => {
       if ($window.shbridge && $window.shbridge.reencryptFile) {
-        $window.shbridge.reencryptFile(file, 'foobarbaz'); // todo: accept a passphrase from User
+        return $window.shbridge.reencryptFile(file, 'foobarbaz'); // todo: accept a passphrase from User
       } else {
         console.error('Bridge method "reencryptFile" not found');
       }
@@ -79,6 +93,16 @@
       $timeout(() => {
         filesService.files[destination][file.dropId] = file;
         filesService.files.selected = (file._id === filesService.files.selected._id) ? file : filesService.files.selected;
+      });
+    });
+
+    messageService.on('fileremoved', (file) => {
+      $window.console.log('file removed:', file);
+      
+      let destination = (file.state > 2) ? 'working' : 'complete';
+
+      $timeout(() => {
+        delete filesService.files[destination][file.dropId];
       });
     });
 

@@ -239,8 +239,22 @@ nav .side i {
   min-width: 100px;
 }
 
-.container-file-details {
-  padding: 25px;
+/*.container-file-details {
+  
+}*/
+
+.file-details-header,
+.file-details-body {
+  
+}
+
+.file-details-header {
+
+}
+
+.file-details-body {
+  padding-left: 25px;
+  padding-right: 25px;
 }
 
 .container-file-details h1 {
@@ -519,9 +533,22 @@ button.btn {
   padding: 0 2em;
 }
 
+button.flat {
+  padding: 0 1.5em;
+  line-height: 28px;
+  font-weight: 600;
+}
+
+button.flat:active {
+  padding: 0 1.5em;
+  background: #febd3e;
+  border-color: #febd3e;
+  color: #fff;
+}
+
 .flat,
 .flat:active {
-  transition: background 500ms, color 200ms;
+  transition: background 300ms, color 100ms;
   border: 3px solid transparent;
   height: 32px;
   border-radius: 16px;
@@ -538,6 +565,11 @@ button.btn {
   border: 2px solid #eee;
   background-color: #fff;
   color: #febd3e;
+}
+
+li .flat,
+li .flat:active {
+  padding-left: 0;
 }
 
 /* Loaders & Spinners */

@@ -81,7 +81,7 @@
         $scope.isSelected = false;
       });
       $timeout(() => {
-        $scope.files.selected = {};
+        filesService.deselect();
       }, 200);
     };
 
@@ -101,6 +101,10 @@
       } else {
         $scope.isSearching = false;
       }
+    }, true);
+
+    $scope.$watch('files.selected', (selectedFile) => {
+      $scope.isSelected = Object.keys(selectedFile).length > 0;
     }, true);
 
   }]);

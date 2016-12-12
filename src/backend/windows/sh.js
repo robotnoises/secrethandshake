@@ -71,6 +71,16 @@ function openFile(file) {
   }
 }
 
+function deleteFile(file) { 
+  return filesystem.removeFile(file.shPath)
+    .then(() => {
+      return db.remove(db.databases.files, { _id: file._id});
+    })
+    .then(() => {
+      message.send(createdWin.window, new message.Notification('fileremoved', file))
+    });
+}
+
 function moveFile(file) {
   return db.read(db.databases.files, { name: file.name })
     .then((docs) => {
@@ -218,6 +228,7 @@ function createNew(callback) {
     bridge.setItem(win.window, 'consumeFiles', processFiles);
     bridge.setItem(win.window, 'reencryptFile', reencryptFile);
     bridge.setItem(win.window, 'openFile', openFile);
+    bridge.setItem(win.window, 'deleteFile', deleteFile);
     bridge.setItem(win.window, 'setPassphrase', setPassphrase);
     bridge.setItem(win.window, 'checkPassphrase', checkPassphrase);
   });
