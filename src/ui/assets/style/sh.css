@@ -38,8 +38,8 @@ table {
 table td,
 table th {
   border-right: none;
-  padding: 4px 24px;
-  line-height: 46px;
+  padding: 0 24px;
+  line-height: 48px;
 }
 
 table tr:not(:last-child) {
@@ -194,10 +194,6 @@ nav .side i {
 .container-files .row {
   padding: 0 25px;
   user-select: none;
-}
-
-.container-files .row i.fa {
-  padding-top: 2px;
 }
 
 .container-files .row.working {
