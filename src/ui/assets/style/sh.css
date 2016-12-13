@@ -43,7 +43,7 @@ table th {
 }
 
 table tr:not(:last-child) {
-  height: 52px;
+  height: 48px;
 }
 
 table td:first-child,
