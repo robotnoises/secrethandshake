@@ -32,7 +32,7 @@
         </tr>
 
         <!-- Resting files -->
-        <tr class="row" ng-class="{ selected: isSelected && files.selected._id === value._id }" ng-repeat="(key, value) in files.complete" ng-click="select(value)">
+        <tr class="row" ng-class="{ selected: isSelected && files.selected._id === value._id }" ng-repeat="(key, value) in files.complete" ng-click="select(value)" right-click="toggleContextMenu(value)">
           <td class="icon"><i class="fa fa-file-text-o"></i></td>
           <td class="name truncate" ng-bind="value.name"></td>
           <td class="filestate" ng-class="{ filelocked: value.state === 0 }" >

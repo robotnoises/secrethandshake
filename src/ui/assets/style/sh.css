@@ -518,6 +518,21 @@ nav .side i {
   color: #fff;
 }
 
+.sh-contextmenu {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  height: 300px;
+  width: 150px;
+  background-color: #fafafa;
+}
+
+.sh-contextmenu.show {
+  display: block;
+}
+
 /* Buttons */
 
 button.btn {

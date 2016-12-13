@@ -24,6 +24,7 @@
     $scope.formatFileSize = filesService.formatBytes;
 
     $scope.isSelected = false;
+    $scope.isClicked = false;
     $scope.isSearching = false;
     
     $scope.confirmModel = {
@@ -93,6 +94,12 @@
         .catch(error => console.error(error));
     };
 
+    $scope.toggleContextMenu = (file) => {
+      $timeout(() => {
+        $scope.isClicked = !!file;
+      });
+    };
+
     // Scope watchers
 
     $rootScope.$watch('searchQuery', (sq) => {
@@ -106,6 +113,14 @@
     $scope.$watch('files.selected', (selectedFile) => {
       $scope.isSelected = Object.keys(selectedFile).length > 0;
     }, true);
+
+    // Event listeners
+
+    $window.addEventListener('mousedown', ($event) => {
+      $event.preventDefault();
+      $event.stopPropagation();
+      $scope.toggleContextMenu();
+    });
 
   }]);
 
