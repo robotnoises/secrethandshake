@@ -22,15 +22,43 @@ function createMenu() {
     // Main SH Window
     _menu.append(new nw.MenuItem({ 
       type: 'normal', 
-      label: 'Open', 
+      label: 'Open Secret Handshake', 
       click: shWindow.show
     }));
 
+    // Ruler
+    _menu.append(new nw.MenuItem({ 
+      type: 'separator'
+    }));
+
     // Test harness application
+    // _menu.append(new nw.MenuItem({ 
+    //   type: 'normal', 
+    //   label: 'Test', 
+    //   click: testWindow.show
+    // }));
+
+    // Help
     _menu.append(new nw.MenuItem({ 
       type: 'normal', 
-      label: 'Test', 
-      click: testWindow.show
+      label: 'Launch Website', 
+      click: () => {
+        // todo
+      }
+    }));
+
+    // Help
+    _menu.append(new nw.MenuItem({ 
+      type: 'normal', 
+      label: 'Help', 
+      click: () => {
+        // todo
+      }
+    }));
+
+    // Ruler
+    _menu.append(new nw.MenuItem({ 
+      type: 'separator'
     }));
 
     // Quit
