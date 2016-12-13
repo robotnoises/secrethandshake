@@ -1,6 +1,6 @@
 'use strict';
 
-const logger = require('./../../global/logger');
+const logger = require('./logger');
 
 /**
  * notifications should take the form...

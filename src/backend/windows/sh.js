@@ -2,13 +2,14 @@
 
 const path = require('path');
 const windowService = require('./index');
-const bridge = require('./../../global/bridge');
-const logger = require('./../../global/logger');
 const db = require('./../services/db'); 
 const passphrase = require('./../services/passphrase');
 const message = require('./../services/message');
 const filesystem = require('./../services/filesystem');
 const encryption = require('./../services/encryption');
+const bridge = require('./../services/bridge');
+const logger = require('./../services/logger');
+
 const _ = require('lodash');
 
 const ERROR = require('./../services/error');

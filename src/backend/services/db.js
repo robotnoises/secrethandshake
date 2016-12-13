@@ -3,8 +3,8 @@
 const path = require('path');
 const filesystem = require('./filesystem');
 const Datastore = require('nedb');
-const config = require('./../../global/config'); // todo: this path sucks
-const logger = require('./../../global/logger'); // todo: same
+const config = require('./config');
+const logger = require('./logger');
 
 /**
  * Private

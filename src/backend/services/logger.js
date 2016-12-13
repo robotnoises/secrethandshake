@@ -1,5 +1,5 @@
 const winston = require('winston');
-const filesystem = require('./../backend/services/filesystem');
+const filesystem = require('./filesystem');
 
 var logger = new (winston.Logger)({
   transports: [

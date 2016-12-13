@@ -2,7 +2,7 @@
 
 const tray = require('./src/backend/services/tray');
 const db = require('./src/backend/services/db');
-const logger = require('./src/global/logger');
+const logger = require('./src/backend/services/logger');
 const express = require('express');
 const bodyParser = require('body-parser');
 
