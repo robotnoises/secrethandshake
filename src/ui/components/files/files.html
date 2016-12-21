@@ -58,6 +58,9 @@
   <!-- Confirm passphrase -->
   <confirm-directive model="confirmModel"></confirm-directive>
 
+  <!-- Context Menu -->
+  <context-menu class="truncate" clickedfile="files.clicked" ng-class="{ show: (isClicked && !isSelected) }" ng-style="{ 'left': clickPosition.x, 'top': clickPosition.y }"></context-menu>
+
   <!-- If no files (drag or click) -->
   <div class="dropzone" ng-class="{ disabled: (files.loaded && !files.empty) }" ngf-drop="consumeFiles($files)" ngf-select="consumeFiles($files)" ngf-multiple="true">
     <div class="spinnything"></div>

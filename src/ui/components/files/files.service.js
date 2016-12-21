@@ -17,7 +17,8 @@
       empty: true,
       working: {},
       complete: {},
-      selected: {}
+      selected: {},
+      clicked: {}
     };
 
     filesService.consumeFiles = (files) => {

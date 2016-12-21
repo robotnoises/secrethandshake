@@ -4,9 +4,9 @@
 
   angular.module('sh')
 
-  .directive('rightClick', ['$timeout', '$window', '$rootScope', '$parse', 
+  .directive('rightClick', ['$window', '$rootScope', '$parse', 
   
-  function ($timeout, $window, $rootScope, $parse) {
+  function ($window, $rootScope, $parse) {
     return {
       restrict: 'A',
       replace: false,
@@ -15,10 +15,15 @@
         
         // Right-click listener
         element[0].addEventListener('mousedown', ($event) => {
-          $event.preventDefault();
-          $event.stopPropagation();
-
           if ($event.which === 3) {
+            $event.preventDefault();
+            $event.stopPropagation();
+            
+            $window.$shclickposition = {
+              x: $event.clientX + 'px',
+              y: $event.clientY + 'px'
+            }
+
             try {
               $parse(attributes.rightClick)(scope);
             } catch (ex) {

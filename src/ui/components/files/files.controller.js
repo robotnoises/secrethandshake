@@ -22,7 +22,7 @@
     $scope.files = filesService.files;
     $scope.moment = $window.moment;
     $scope.formatFileSize = filesService.formatBytes;
-
+    
     $scope.isSelected = false;
     $scope.isClicked = false;
     $scope.isSearching = false;
@@ -31,6 +31,11 @@
       text: 'Enter your passphrase',
       eventName: 'toggleFileConfirm',
       validate: filesService.checkPassphrase
+    }
+
+    $scope.clickPosition = {
+      x: '0px',
+      y: '0px'
     }
 
     // Private methods
@@ -62,8 +67,6 @@
       });
     }
 
-    $window.document.addEventListener('keydown', handleEscape);
-
     // Scope methods
 
     $scope.select = (file) => {
@@ -88,7 +91,6 @@
 
     $scope.consumeFiles = ($files) => {
       if (!$files.length) return;
-      
       confirm()
         .then(handleConfirm.bind(undefined, $files))
         .catch(error => console.error(error));
@@ -96,6 +98,8 @@
 
     $scope.toggleContextMenu = (file) => {
       $timeout(() => {
+        $scope.clickPosition = $window.$shclickposition;
+        $scope.files.clicked = file || {};
         $scope.isClicked = !!file;
       });
     };
@@ -115,6 +119,8 @@
     }, true);
 
     // Event listeners
+
+    $window.document.addEventListener('keydown', handleEscape);
 
     $window.addEventListener('mousedown', ($event) => {
       $event.preventDefault();
