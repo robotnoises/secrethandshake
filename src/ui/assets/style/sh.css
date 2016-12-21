@@ -64,6 +64,7 @@ table td.name {
 table td.filestate {
   font-size: 6px;
   text-align: center;
+  vertical-align: middle;
 }
 
 table td.filestate i {
@@ -597,7 +598,76 @@ li .flat:active {
 
 /* Loaders & Spinners */
 
-.loading {
+.dot-container {
+  width: 12px;
+  height: 12px;
+  background-color: transparent;
+}
+
+.dot-container.processing {
+  animation: loadingbounce 1000ms infinite ease-in-out;
+}
+
+.dot-container .dot {
+  height: 100%;
+  width: 100%;
+  border-width: 2px;
+  border-color: rgba(0,0,0,0.1);
+  border-style: solid;
+  border-radius: 6px;
+  transition: background 200ms ease-in;
+}
+
+.dot-container.processing .dot {
+  animation: loadingspin 1000ms infinite linear;
+  border-color: #555;
+  border-style: dashed;
+}
+
+.dot-container.encrypted .dot {
+  background-color: #febd3e;
+}
+
+.dot-container.decrypted .dot {
+  background-color: #2ecc71;
+}
+
+.dot-container.pending .dot {
+  background-color: #ccc;
+}
+
+.dot-container.error .dot {
+  background-color: #e74c3c;
+}
+
+@keyframes loadingbounce {
+  0%, 100% {
+    transform: translateY(0),;
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes loadingspin {
+  from { 
+    transform: rotate(0deg); 
+  }
+  to { 
+    transform: rotate(360deg); 
+  }
+}
+
+/*@keyframes loadingsquish {
+  0%, 100% {
+    transform: skewY(0.8rad);
+  }
+  50% {
+    transform: skewY(1.0rad);
+  }
+}*/
+
+/*.loading {
   margin: 0 auto;
   width: 40px;
   text-align: center;
@@ -638,7 +708,7 @@ li .flat:active {
     -webkit-transform: scale(1.0);
     transform: scale(1.0);
   }
-}
+}*/
 
 /* Dialogs */
 

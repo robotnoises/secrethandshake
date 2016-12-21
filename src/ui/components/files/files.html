@@ -17,15 +17,8 @@
         <tr class="row working" ng-class="{ selected: isSelected && files.selected._id === value._id }" ng-repeat="(key, value) in files.working" ng-click="select(value)">
           <td class="icon"><i class="fa fa-file-text-o"></i></td>
           <td class="name truncate" ng-bind="value.name"></td>
-          <td class="filestate" ng-class="{ filelocked: value.state === 0 }" >
-            <i ng-if="value.state === 0" class="fa fa-lock" aria-hidden="true"></i>
-            <i ng-if="value.state === 1" class="fa fa-unlock" aria-hidden="true"></i>
-            <div class="loading" ng-if="value.state === 2">
-              <div class="bounce1"></div>
-              <div class="bounce2"></div>
-              <div class="bounce3"></div>
-            </div>
-            <i ng-if="value.state === 4" class="fa fa-exclamation" aria-hidden="true"></i>
+          <td class="filestate">
+            <dot state="value.state"></dot>
           </td>
           <td class="filesize truncate" ng-bind="formatFileSize(value.size)"></td>
           <td class="date truncate" ng-bind="moment(value.lastModified).format('MMM DD, YYYY h:mm a')"></td>
@@ -35,14 +28,8 @@
         <tr class="row" ng-class="{ selected: isSelected && files.selected._id === value._id }" ng-repeat="(key, value) in files.complete" ng-click="select(value)" right-click="toggleContextMenu(value)">
           <td class="icon"><i class="fa fa-file-text-o"></i></td>
           <td class="name truncate" ng-bind="value.name"></td>
-          <td class="filestate" ng-class="{ filelocked: value.state === 0 }" >
-            <i ng-if="value.state === 0" class="fa fa-lock" aria-hidden="true"></i>
-            <i ng-if="value.state === 1" class="fa fa-unlock" aria-hidden="true"></i>
-            <div class="loading" ng-if="value.state === 2">
-              <div class="bounce1"></div>
-              <div class="bounce2"></div>
-              <div class="bounce3"></div>
-            </div>
+          <td class="filestate">
+            <dot state="value.state"></dot>
           </td>
           <td class="filesize truncate" ng-bind="formatFileSize(value.size)"></td>
           <td class="date truncate" ng-bind="moment(value.lastModified).format('MMM DD, YYYY h:mm a')"></td>
