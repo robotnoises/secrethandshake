@@ -57,7 +57,7 @@
       }, 
       template: 
       '<div class="dot-container" ng-class="stateClass">' +
-      '  <div ng-if="!processing" class="dot"></div>' + // <--- a bit of a hack to get around the tranform "leaving behind"
+      '  <div ng-if="!processing" class="dot"></div>' + // <--- a bit of a hack to get around the animation "leaving behind"
       '  <div ng-if="processing" class="dot"></div>' +  // the old background-color state. We have to re-render each time.
       '</div>' 
     }
