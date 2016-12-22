@@ -601,48 +601,50 @@ li .flat:active {
 .dot-container {
   width: 12px;
   height: 12px;
-  background-color: transparent;
+  overflow: hidden;
 }
 
 .dot-container.processing {
   animation: loadingbounce 1000ms infinite ease-in-out;
+  animation-delay: 100ms;
 }
 
-.dot-container .dot {
+.dot-container > .dot {
+  background-color: transparent;
   height: 100%;
   width: 100%;
-  border-width: 2px;
+  border-width: 1px;
   border-color: rgba(0,0,0,0.1);
   border-style: solid;
   border-radius: 6px;
-  transition: background 200ms ease-in;
 }
 
-.dot-container.processing .dot {
+.dot-container.encrypted > .dot {
+  background-color: #febd3e;
+}
+
+.dot-container.decrypted > .dot {
+  background-color: #2ecc71;
+}
+
+.dot-container.pending > .dot {
+  background-color: #aaa;
+}
+
+.dot-container.error > .dot {
+  background-color: #e74c3c;
+}
+
+.dot-container.processing > .dot {
+  background-color: transparent;
   animation: loadingspin 1000ms infinite linear;
   border-color: #555;
   border-style: dashed;
 }
 
-.dot-container.encrypted .dot {
-  background-color: #febd3e;
-}
-
-.dot-container.decrypted .dot {
-  background-color: #2ecc71;
-}
-
-.dot-container.pending .dot {
-  background-color: #ccc;
-}
-
-.dot-container.error .dot {
-  background-color: #e74c3c;
-}
-
 @keyframes loadingbounce {
   0%, 100% {
-    transform: translateY(0),;
+    transform: translateY(0);
   }
   50% {
     transform: translateY(-5px);
@@ -651,64 +653,12 @@ li .flat:active {
 
 @keyframes loadingspin {
   from { 
-    transform: rotate(0deg); 
+    transform: rotate(0deg);
   }
   to { 
-    transform: rotate(360deg); 
+    transform: rotate(360deg);
   }
 }
-
-/*@keyframes loadingsquish {
-  0%, 100% {
-    transform: skewY(0.8rad);
-  }
-  50% {
-    transform: skewY(1.0rad);
-  }
-}*/
-
-/*.loading {
-  margin: 0 auto;
-  width: 40px;
-  text-align: center;
-  vertical-align: middle;
-}
-
-.loading > div {
-  width: 5px;
-  height: 5px;
-  background-color: rgba(0,0,0,0.3);
-
-  border-radius: 100%;
-  display: inline-block;
-  -webkit-animation: sk-bouncedelay 1s infinite ease-in-out both;
-  animation: sk-bouncedelay 1s infinite ease-in-out both;
-}
-
-.loading .bounce1 {
-  -webkit-animation-delay: -0.32s;
-  animation-delay: -0.32s;
-}
-
-.loading .bounce2 {
-  -webkit-animation-delay: -0.16s;
-  animation-delay: -0.16s;
-}
-
-@-webkit-keyframes sk-bouncedelay {
-  0%, 80%, 100% { -webkit-transform: scale(0) }
-  40% { -webkit-transform: scale(1.0) }
-}
-
-@keyframes sk-bouncedelay {
-  0%, 80%, 100% { 
-    -webkit-transform: scale(0);
-    transform: scale(0);
-  } 40% { 
-    -webkit-transform: scale(1.0);
-    transform: scale(1.0);
-  }
-}*/
 
 /* Dialogs */
 

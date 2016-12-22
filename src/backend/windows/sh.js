@@ -54,6 +54,10 @@ function openFile(file) {
   if (f.state === FILESTATE.DECRYPTED) {
     return filesystem.openFile(f.shPath);
   } else {
+    // Notify UI
+    file.state = FILESTATE.PROCESSING;
+    message.send(createdWin.window, new message.Notification('fileupdated', file));
+    // Decrypt the file
     return encryption.decrypt(f.shPath, 'foobarbaz')
       .then(() => {
         return filesystem.openFile(f.shPath);
@@ -132,6 +136,10 @@ function encryptNewFile(file, passphrase) {
 
 function reencryptFile(file, passphrase) {
   if (passphrase) {
+    // Notify UI
+    file.state = FILESTATE.PROCESSING;
+    message.send(createdWin.window, new message.Notification('fileupdated', file));
+    // Encrypt the file
     return new Promise((resolve) => {
       let shFile = new ShFile(file);
       encryption.encrypt(shFile.shPath, passphrase)
@@ -146,6 +154,8 @@ function reencryptFile(file, passphrase) {
         })
         .catch(error => {
           logger.error(error);
+          file.state = FILESTATE.ERROR;
+          message.send(createdWin.window, new message.Notification('fileupdated', file));
         });
     });
   } else {
