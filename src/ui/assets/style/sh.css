@@ -26,8 +26,10 @@ table {
     the table being wide-enough to not have to scroll-x
   */
   
-  width: calc(100% + 1px);
-  height: calc(100% + 1px); 
+  /*width: calc(100% + 1px);
+  height: calc(100% + 1px); */
+  width: 100%;
+  height: 100%;
   
   /* **** */
 
@@ -606,7 +608,7 @@ li .flat:active {
 
 .dot-container.processing {
   animation: loadingbounce 1000ms infinite ease-in-out;
-  animation-delay: 100ms;
+  animation-delay: 200ms;
 }
 
 .dot-container > .dot {
@@ -614,7 +616,7 @@ li .flat:active {
   height: 100%;
   width: 100%;
   border-width: 1px;
-  border-color: rgba(0,0,0,0.1);
+  border-color: transparent;
   border-style: solid;
   border-radius: 6px;
 }
@@ -723,38 +725,6 @@ li .flat:active {
 }
 
 /* Colors and Gradients */
-
-.co-darkest {
-  color: #22313F;
-}
-
-.co-dark {
-  color: #34495E;
-}
-
-.co-light {
-  color: #8DC6FF;
-}
-
-.co-lightest {
-  color: #E4F1FE;
-}
-
-.bg-darkest {
-  background-color: #22313F;
-}
-
-.bg-dark {
-  background-color: #34495E;
-}
-
-.bg-light {
-  background-color: #8DC6FF;
-}
-
-.bg-lightest {
-  background-color: #E4F1FE;
-}
 
 .gradient {
   background: linear-gradient(to top, rgb(11, 0, 14), rgb(91, 0, 114));

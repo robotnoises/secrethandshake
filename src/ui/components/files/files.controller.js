@@ -123,8 +123,6 @@
     $window.document.addEventListener('keydown', handleEscape);
 
     $window.addEventListener('mousedown', ($event) => {
-      $event.preventDefault();
-      $event.stopPropagation();
       $scope.toggleContextMenu();
     });
 

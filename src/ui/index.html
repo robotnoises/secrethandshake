@@ -38,9 +38,9 @@
             </li>
           </ul>
         </div>
-        <div class="searchbar" ng-controller="searchController">
+        <div class="searchbar">
           <i class="fa fa-search" aria-hidden="true"></i>
-          <input type="text" ng-model="searchQuery.q" />
+          <input type="text" ng-controller="searchController" ng-model="searchQuery.q" />
         </div>
       </div>
     </div>
@@ -76,6 +76,7 @@
     <script src="components/nav/nav.controller.js"></script>
     <script src="components/userbar/userbar.controller.js"></script>
     <script src="components/search/search.controller.js"></script>
+    <script src="components/search/searchDetails.directive.js"></script>
     <script src="components/dialogs/confirm.js"></script>
     <script src="components/dialogs/rightClick.js"></script>
     <script src="components/dialogs/contextMenu.js"></script>
