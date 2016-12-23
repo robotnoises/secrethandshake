@@ -41,12 +41,28 @@
     // Private methods
 
     const ESCAPE_KEY = 27;
+    const DOUBLE_CLICK_TIMEOUT = 150;
 
     function handleEscape($event) {
       if ($event.which === ESCAPE_KEY) {
         $scope.deselect();
         $scope.isSearching = false;
         $rootScope.$emit($scope.confirmModel.eventName, false);
+      }
+    }
+
+    let firstClickTimeoutId = -1;
+    function handleDoubleClick(callback) {
+      if (firstClickTimeoutId >= 0) {
+        clearTimeout(firstClickTimeoutId);
+        firstClickTimeoutId = -1;
+        callback(true);
+      } else {
+        firstClickTimeoutId = setTimeout(() => {
+          clearTimeout(firstClickTimeoutId);
+          firstClickTimeoutId = -1;
+          callback(false);
+        }, DOUBLE_CLICK_TIMEOUT);
       }
     }
 
@@ -71,10 +87,8 @@
 
     $scope.select = (file) => {
       if ($scope.files.selected._id !== file._id) {
-        $timeout(() => {
-          $scope.files.selected = file;
-          $scope.isSelected = true;
-        });
+        $scope.files.selected = file;
+        $scope.isSelected = true;
       } else {
         $scope.deselect();
       }
@@ -101,7 +115,7 @@
         $scope.clickPosition = $window.$shclickposition;
         $scope.files.clicked = file || {};
         $scope.isClicked = !!file;
-      });
+      }, (file) ? 0 : 100); // todo: this is clunky
     };
 
     // Scope watchers
@@ -121,11 +135,7 @@
     // Event listeners
 
     $window.document.addEventListener('keydown', handleEscape);
-
-    $window.addEventListener('mousedown', ($event) => {
-      $scope.toggleContextMenu();
-    });
-
+    $window.document.addEventListener('mousedown', $scope.toggleContextMenu.bind(undefined, null));
   }]);
 
 })(angular);

@@ -4,9 +4,9 @@
 
   angular.module('sh')
 
-  .directive('contextMenu', ['$timeout', '$window', '$rootScope', 
+  .directive('contextMenu', ['filesService', 
   
-  function ($timeout, $window, $rootScope) {
+  function (filesService) {
     return {
       restrict: 'E',
       replace: true,
@@ -14,16 +14,23 @@
         file: '=clickedfile'
       },
       link: (scope, element, attributes) => {
-        // todo
+        scope.open = filesService.openFile;
+        scope.encrypt = filesService.encryptFile;
+        scope.delete = filesService.deleteFile;
+
+        scope.nope = ($event) => {
+          $event.preventDefault();
+          $event.stopPropagation();
+        };
       },
       template: 
-        '<div class="sh-contextmenu">' +
-        '  <div class="sh-contextmenu-item">Open</div>' +
-        '  <div class="sh-contextmenu-item">Encrypt</div>' +
+        '<div class="sh-contextmenu" ng-click="nope($event)">' +
+        '  <div class="sh-contextmenu-item" ng-click="open(file)">Open</div>' +
+        '  <div class="sh-contextmenu-item" ng-click="encrypt(file)">Encrypt</div>' +
         '  <div class="sh-contextmenu-item">Send</div>' +
         '  <div class="sh-contextmenu-item">Audit</div>' +
         '  <div class="sh-contextmenu-item">Export</div>' +
-        '  <div class="sh-contextmenu-item">Delete</div>' +
+        '  <div class="sh-contextmenu-item" ng-click="delete(file)">Delete</div>' +
         '</div>'
     }
   }]);
