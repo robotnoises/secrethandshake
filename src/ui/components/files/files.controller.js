@@ -132,6 +132,11 @@
       $scope.isSelected = Object.keys(selectedFile).length > 0;
     }, true);
 
+    // Temp
+    $timeout(() => {
+      $rootScope.$emit('notify', {title: 'test', message: 'this is a test', level: 'success'});
+    }, 500);
+
     // Event listeners
 
     $window.document.addEventListener('keydown', handleEscape);

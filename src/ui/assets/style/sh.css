@@ -20,19 +20,8 @@ a {
 /* Tables */
 
 table {
-  /* 
-    Fixes a weird bug in Chromium 55.... still trying to figure it out,
-    but without this, the page won't repaint when the User selects a table row +
-    the table being wide-enough to not have to scroll-x
-  */
-  
-  /*width: calc(100% + 1px);
-  height: calc(100% + 1px); */
   width: 100%;
   height: 100%;
-  
-  /* **** */
-
   border: none;
   font-size: 12px;
 }
@@ -596,6 +585,24 @@ button.flat:active {
 li .flat,
 li .flat:active {
   padding-left: 0;
+}
+
+/* Toast */
+
+.toasts {
+  position: fixed;
+  left: 5px;
+  bottom: 5px;
+  width: 100%;
+  max-width: 350px;
+}
+
+.toast {
+  color: #fff;
+}
+
+.toast.success {
+  background-color: #2ecc71;
 }
 
 /* Loaders & Spinners */
