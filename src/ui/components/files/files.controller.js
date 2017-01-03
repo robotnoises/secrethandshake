@@ -10,13 +10,15 @@
     '$window', 
     '$timeout',
     'filesService', 
+    'notificationService',
     
     function (
       $scope, 
       $rootScope,
       $window, 
       $timeout,
-      filesService
+      filesService,
+      notificationService
     ) {
     
     $scope.files = filesService.files;
@@ -134,7 +136,7 @@
 
     // Temp
     $timeout(() => {
-      $rootScope.$emit('notify', {title: 'test', message: 'this is a test', level: 'success'});
+      notificationService.sendSuccess('this is a message', 'some title');
     }, 500);
 
     // Event listeners

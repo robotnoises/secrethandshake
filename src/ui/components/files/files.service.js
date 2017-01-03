@@ -6,9 +6,9 @@
 
   .factory('filesService', ['$window', '$timeout', 'messageService', 
   
-  function ($window, $timeout, messageService) {
+  ($window, $timeout, messageService) => {
 
-    let filesService= {};
+    let filesService = {};
 
     // Public
 

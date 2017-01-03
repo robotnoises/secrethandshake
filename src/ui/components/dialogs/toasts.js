@@ -23,9 +23,18 @@
       link: (scope, element, attributes) => {
         scope.toasts = {};
 
+        function removeWhen(key, duration) {
+          if (scope.toasts[key]) {
+            $timeout(() => {
+              delete scope.toasts[key];
+            }, duration);
+          }
+        }
+
         $rootScope.$on('notify', ($event, data) => {
           data.key = new Date().getTime();
           scope.toasts[data.key] = data;
+          removeWhen(data.key, 5000);
         });
       },
       template: 
